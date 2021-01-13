@@ -1,6 +1,5 @@
 import React from 'react'
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import SearchBox from './SearchBox'
 
 class MapDisplay extends React.Component {
 
@@ -41,7 +40,6 @@ class MapDisplay extends React.Component {
 
         return (
             <><h1>Map section</h1>
-                    <SearchBox/>
                 <Map
                     style={{ width: '50%', height: '50%', position: 'relative' }}
                     google={this.props.google}
@@ -86,5 +84,5 @@ class MapDisplay extends React.Component {
 
 
 export default GoogleApiWrapper({
-    apiKey: ()
+    apiKey: (process.env.REACT_APP_API_KEY)
 })(MapDisplay)
