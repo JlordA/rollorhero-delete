@@ -1,1 +1,34 @@
 
+/* HOME CSS */
+
+.homeContainerDiv {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    }
+    
+    .bannerDiv { grid-area: 2 / 2 / 3 / 8; }
+
+    .buttonbarDiv { grid-area: 3 / 2 / 8 / 4; }
+
+    .mapDiv { grid-area: 3 / 4 / 8 / 8; }
+
+    .detailsContainerDiv { grid-area: 8 / 2 / 12 / 8; }
+
+    .topSandwichesDiv { grid-area: 8 / 3 / 12 / 5; }
+
+    .hoursDiv { grid-area: 8 / 5 / 12 / 7; }
+
+
+
+
+/* <div class="homeContainerDiv">
+    <div class="bannerDiv"> </div>
+    <div class="buttonbarDiv"> </div>
+    <div class="mapDiv"> </div>
+    <div class="detailsContainerDiv"> </div>
+    <div class="topSandwichesDiv"> </div>
+    <div class="hoursDiv"> </div>
+</div> */

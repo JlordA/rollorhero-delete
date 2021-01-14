@@ -10,7 +10,7 @@ class MapDisplay extends React.Component {
     }
 
     onMarkerClick = (props, marker) => {
-        console.log("clicked:", props)
+        console.log("props:", props, "marker", marker)
         this.setState({
             showingInfoWindow: true,
             activeMarker: marker,
@@ -24,7 +24,7 @@ class MapDisplay extends React.Component {
     }
 
     mapClicked(mapProps, map, clickEvent) {
-        console.log(mapProps, map, clickEvent)
+        // console.log("Map props: ", mapProps, "map", map, "clickevent:", clickEvent)
     }
 
     onMouseoverMarker = (props, marker) => {
@@ -39,9 +39,9 @@ class MapDisplay extends React.Component {
     render() {
 
         return (
-            <><h1>Map section</h1>
+            <div>
                 <Map
-                    style={{ width: '50%', height: '50%', position: 'relative' }}
+                    style={{ width: '600px', height: '400px'}}
                     google={this.props.google}
                     zoom={13}
                     initialCenter={{
@@ -52,17 +52,17 @@ class MapDisplay extends React.Component {
                     onClick={this.mapClicked}
                     >
                     <Marker
-                        onClick={this.onMarkerClick}
                         name={'Emilys Pork Store'}
                         position={{
                             lat: 40.717850604253265, lng: -73.94484766128053
-                        }} />
+                        }} 
+                        onClick={this.onMarkerClick}
+                        />
                     <Marker
                         title={'The marker`s title will appear as a tooltip.'}
                         name={'MeatHook'}
                         position={{ lat: 40.71690731819477, lng: -73.94494422080037 }}
-                        onClick={this.onMarkerClick}
-                        onMouseover={this.onMouseoverMarker} />
+                        onClick={this.onMarkerClick} />
                     <Marker
                         name={'Beer Street'}
                         website={"https://www.beerstreetny.com/"}
@@ -77,7 +77,7 @@ class MapDisplay extends React.Component {
                             </div>
                     </InfoWindow>
                 </Map>
-            </>
+            </div>
         )
     }
 }
