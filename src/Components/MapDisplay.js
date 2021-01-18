@@ -1,5 +1,10 @@
 import React from 'react'
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { connect } from "react-redux"
+import { getDelis } from '../Redux/actions'
+import { renderReviewForm } from '../Redux/actions'
+import InfoWindowEx from './InfoWindoEx'
+import {currentDeli} from '../Redux/actions'
 
 class MapDisplay extends React.Component {
 
@@ -9,8 +14,42 @@ class MapDisplay extends React.Component {
         selectedPlace: {}
     }
 
+    componentDidMount() {
+        this.props.fetchDelis()
+    }
+
+    markers = () => {
+        const filteredDeliArray = this.props.currentDelis.filter(deliEl => deliEl.style === this.props.deliFilter )
+        const filteredSandwichArray = this.props.currentDelis.filter(deliEl => deliEl.sandwiches[0].style === this.props.sandwichFilter )
+        if(filteredDeliArray.length > 0 ){
+            return filteredDeliArray.map(deliEl => {
+                    const lat = deliEl.lat
+                    const lng = deliEl.lng
+                    return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
+                    position={{lat: lat, lng: lng}} />
+                })
+        } else if(filteredSandwichArray.length > 0 ) {
+            return filteredSandwichArray.map(deliEl => {
+                    const lat = deliEl.lat
+                    const lng = deliEl.lng
+                    // console.log(deliEl)
+                    return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
+                    position={{lat: lat, lng: lng}} />
+                })
+        } else {
+            return this.props.currentDelis.map(deliEl => {
+                    const lat = deliEl.lat
+                    const lng = deliEl.lng
+                    // console.log(deliEl)
+                    return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
+                    position={{lat: lat, lng: lng}} />
+                })
+        }
+    }
+
+    /// MAP ACTIONS ///
     onMarkerClick = (props, marker) => {
-        console.log("props:", props, "marker", marker)
+        // console.log("props:", props, "marker", marker)
         this.setState({
             showingInfoWindow: true,
             activeMarker: marker,
@@ -19,29 +58,32 @@ class MapDisplay extends React.Component {
     }
 
     centerMoved(mapProps, map) {
-        console.log(mapProps, map)
-
+        // console.log(mapProps, map)
     }
 
     mapClicked(mapProps, map, clickEvent) {
         // console.log("Map props: ", mapProps, "map", map, "clickevent:", clickEvent)
     }
 
-    onMouseoverMarker = (props, marker) => {
-        console.log(props.name)
-        this.setState({
-            showingInfoWindow: true,
-            activeMarker: marker,
-            selectedPlace: props
+    renderReviewFormHandler = () => {
+        // console.log(this.state.selectedPlace.name)
+        this.props.fetchForm()
+        this.props.currentDelis.map(deliEl => {
+            if(deliEl.name === this.state.selectedPlace.name){
+                this.props.setDeli(deliEl)
+            }
         })
     }
 
-    render() {
+    windowHasClosed = () => {
+        this.props.fetchForm()
+    }
 
+    render() {
         return (
             <div>
                 <Map
-                    style={{ width: '600px', height: '400px'}}
+                    style={{ width: '600px', height: '400px' }}
                     google={this.props.google}
                     zoom={13}
                     initialCenter={{
@@ -49,40 +91,50 @@ class MapDisplay extends React.Component {
                         lng: -73.941249
                     }}
                     onDragend={this.centerMoved}
-                    onClick={this.mapClicked}
-                    >
-                    <Marker
-                        name={'Emilys Pork Store'}
-                        position={{
-                            lat: 40.717850604253265, lng: -73.94484766128053
-                        }} 
-                        onClick={this.onMarkerClick}
-                        />
-                    <Marker
-                        title={'The marker`s title will appear as a tooltip.'}
-                        name={'MeatHook'}
-                        position={{ lat: 40.71690731819477, lng: -73.94494422080037 }}
-                        onClick={this.onMarkerClick} />
-                    <Marker
-                        name={'Beer Street'}
-                        website={"https://www.beerstreetny.com/"}
-                        position={{ lat: 40.71837103221931, lng: -73.94477255943177 }} 
-                        onClick={this.onMarkerClick} />
-                    <Marker />
-                    <InfoWindow marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}>
-                            <div>
-                                <h3>{this.state.selectedPlace.name}</h3>
-                                <h3>{this.state.selectedPlace.website}</h3>
-                            </div>
-                    </InfoWindow>
+                    onClick={this.mapClicked}>
+                    {this.props.currentDelis.length > 0 
+                    ? 
+                    this.markers()
+                    : 
+                    <h1>Loading</h1>
+                    }    
+                    <InfoWindowEx 
+                        marker={this.state.activeMarker}
+                        visible={this.state.showingInfoWindow}
+                        onClose={this.windowHasClosed}>
+                        <div >
+                            <h3>{this.state.selectedPlace.name}</h3>
+                            <p>Address: {this.state.selectedPlace.address}</p>
+                            <p>Hours: {this.state.selectedPlace.hours}</p>
+                            <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>
+                        </div>
+                    </InfoWindowEx>
                 </Map>
             </div>
         )
     }
 }
 
+function msp(state) {
+    return {
+        currentDelis: state.delis,
+        reviewForm: state.reviewFormClicked,
+        sandwichFilter: state.sandwichFilter,
+        deliFilter: state.deliFilter
+    }
+}
 
-export default GoogleApiWrapper({
+function mdp(dispatch) {
+    return {
+        fetchDelis: () => dispatch(getDelis()),
+        fetchForm: () => dispatch(renderReviewForm()),
+        setDeli: (deliObj) => dispatch(currentDeli(deliObj))
+    }
+}
+
+export default connect(msp, mdp)(GoogleApiWrapper({
     apiKey: (process.env.REACT_APP_API_KEY)
-})(MapDisplay)
+})(MapDisplay))
+
+
+

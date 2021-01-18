@@ -1,5 +1,10 @@
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import { setSandwichFilter } from '../Redux/actions'
+import { setDeliFilter } from '../Redux/actions'
+import { Button } from 'semantic-ui-react'
+
 
 
 class FilterBar extends React.Component {
@@ -12,7 +17,7 @@ class FilterBar extends React.Component {
     sandwichStyles = [
         { key: '', text: '', value: '' },
         { key: 'Burger', text: 'Burger', value: 'Burger' },
-        { key: 'Cheese_Steak', text: 'Cheese Steak', value: 'Cheese_Steak' },
+        { key: 'Cheese_Steak', text: 'Cheese Steak', value: 'Cheese Steak' },
         { key: 'Melt', text: 'Melt', value: 'Melt' },
         { key: 'Breakfast', text: 'Breakfast', value: 'Breakfast' },
         { key: 'Sub', text: 'SUB', value: 'Sub' },
@@ -24,7 +29,7 @@ class FilterBar extends React.Component {
         <Dropdown
             button
             className='icon'
-            onChange={this.deliClickHandler}
+            onChange={this.sandwichClickHandler}
             name="sandwichStyle"
             floating
             labeled
@@ -39,15 +44,22 @@ class FilterBar extends React.Component {
         { key: '', text: '', value: '' },
         { key: 'Bodega', text: 'Bodega', value: 'Bodega' },
         { key: 'Diner', text: 'Diner', value: 'Diner' },
-        { key: 'Jewish_Deli', text: 'Jewish Deli', value: 'Jewish_Deli' },
+        { key: 'Jewish_Deli', text: 'Jewish Deli', value: 'Jewish Deli' },
         { key: 'Restaurant', text: 'Restaurant', value: 'Restaurant' },
-        { key: 'Italian_Deli', text: 'Italian Deli', value: 'Italian_Deli' },
-        { key: 'Vietnamese_Deli', text: 'Vietnamese Deli', value: 'Vietnamese_Deli' }
+        { key: 'Italian_Deli', text: 'Italian Deli', value: 'Italian Deli' },
+        { key: 'Vietnamese_Deli', text: 'Vietnamese Deli', value: 'Vietnamese Deli' }
     ]
 
+    sandwichClickHandler = (e, data) => {
+        console.log(data.value)
+        this.setState({ sandwichStyle: data.value})
+        this.props.filterSandwiches(data.value)
+    }
+   
     deliClickHandler = (e, data) => {
-        // console.log(data.value)
-        this.setState({ [data.name]: data.value})
+        console.log(data.value)
+        this.setState({ deliStyle: data.value})
+        this.props.filterDelis(data.value)
     }
 
     deliDropdown = () => (
@@ -67,7 +79,7 @@ class FilterBar extends React.Component {
 
 
     render() {
-        // console.log(this.state)
+        // console.log(this.state.deliStyle)
         return (
             <>
                 <br></br>
@@ -78,9 +90,19 @@ class FilterBar extends React.Component {
                 <br></br>
                 <br></br>
                 {this.deliDropdown()}
+                <br></br>
+                <br></br>
+                <Button> Whats Open </Button>
             </>
 
         )
     }
 }
-export default FilterBar
+
+function mdp(dispatch){
+    return{
+        filterSandwiches: (sandStyle) => dispatch(setSandwichFilter(sandStyle)),
+        filterDelis: (deliStyle) => dispatch(setDeliFilter(deliStyle)),
+    }
+}
+export default connect(null,mdp)(FilterBar)
