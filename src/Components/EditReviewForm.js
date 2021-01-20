@@ -1,18 +1,29 @@
 import React from 'react'
 import {connect} from "react-redux"
+import { patchReview, reviewEditClicked } from '../Redux/actions'
 
 class EditReviewForm extends React.Component {
     
     
     state = {
+        id: this.props.review.id,
         title: this.props.review.title,
         date: this.props.review.date,
         body: this.props.review.body,
         rating: this.props.review.rating
     }
 
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+    submitHandler = (e) => {
+        e.preventDefault()
+        this.props.reviewUpdate(this.state)
+        this.props.editReview()
+    }
+
     render() {
-        console.log(this.props)
+        console.log(this.props.review.id)
         return (
         <>
         <h3>Write A Review</h3>
@@ -36,4 +47,11 @@ function msp(state){
     }
 }
 
-export default connect(msp)(EditReviewForm)
+function mdp(dispatch){
+    return{
+        reviewUpdate: (reviewObj) => dispatch(patchReview(reviewObj)),
+        editReview: () => dispatch(reviewEditClicked())
+    }
+}
+
+export default connect(msp, mdp)(EditReviewForm)

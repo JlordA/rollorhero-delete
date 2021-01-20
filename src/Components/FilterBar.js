@@ -11,7 +11,8 @@ class FilterBar extends React.Component {
 
     state = {
         sandwichStyle: "",
-        deliStyle: ""
+        deliStyle: "",
+        currentDateTime: Date().toLocaleString()
     }
 
     sandwichStyles = [
@@ -77,6 +78,10 @@ class FilterBar extends React.Component {
         />
     )
 
+    hoursClickHandler = () => {
+        console.log("clicked:", this.state.currentDateTime)
+        // this.props.currentDelis.filter(deliEl => deliEl.hours_open.includes(this.state.currentDateTime))
+    }
 
     render() {
         // console.log(this.state.deliStyle)
@@ -92,10 +97,16 @@ class FilterBar extends React.Component {
                 {this.deliDropdown()}
                 <br></br>
                 <br></br>
-                <Button> Whats Open </Button>
+                <Button onClick={this.hoursClickHandler}> Whats Open </Button>
             </>
 
         )
+    }
+}
+
+function msp(state){
+    return{
+        currentDelis: state.delis
     }
 }
 
@@ -105,4 +116,4 @@ function mdp(dispatch){
         filterDelis: (deliStyle) => dispatch(setDeliFilter(deliStyle)),
     }
 }
-export default connect(null,mdp)(FilterBar)
+export default connect(msp,mdp)(FilterBar)

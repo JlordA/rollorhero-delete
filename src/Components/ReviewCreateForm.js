@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form, Input, Radio, TextArea } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react';
 import { connect } from 'react-redux'
-import { postReview } from '../Redux/actions';
+import { postReview, renderReviewForm } from '../Redux/actions';
 
 class ReviewForm extends React.Component {
 
@@ -25,8 +25,8 @@ class ReviewForm extends React.Component {
 
     submitHandler = (e) => {
         e.preventDefault()
-        console.log(this.props.user.id)
-        console.log(this.props.deli.id)
+        // console.log(this.props.user.id)
+        // console.log(this.props.deli.id)
 
         // console.log(this.state)
         let reviewObj = {
@@ -38,6 +38,7 @@ class ReviewForm extends React.Component {
             deli_id: this.props.deli.id
         }
         this.props.sendForm(reviewObj)
+        this.props.fetchForm()
     }
     render() {
         // const { value } = this.state
@@ -140,7 +141,8 @@ function msp(state){
 
 function mdp(dispatch) {
     return {
-        sendForm: (reviewObj) => dispatch(postReview(reviewObj))
+        sendForm: (reviewObj) => dispatch(postReview(reviewObj)),
+        fetchForm: () => dispatch(renderReviewForm())
     }
 }
 

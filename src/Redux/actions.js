@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux'
-import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK } from './actionTypes'
+import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK } from './actionTypes'
 
 /// USER ACTIONS ///
 
@@ -52,8 +52,45 @@ export function getDelis() {
     }
 }
 
+export function getDeliOfReview(deli_id){
+    // console.log(deli_id)
+    return function (dispatch) {
+        fetch(`http://localhost:3000/api/delis/${deli_id}`)
+            .then(r => r.json())
+            .then(deliFromReview => {
+                dispatch({ type: GET_DELI, payload: deliFromReview })
+            })
+    }
+}
+
 export function currentDeli(deliObj) {
     return { type: CURRENT_DELI, payload: deliObj }
+}
+
+/// SANDWICH ACTIONS ///
+
+export function getSandwiches() {
+    return function (dispatch) {
+        fetch('http://localhost:3000/api/sandwiches')
+            .then(r => r.json())
+            .then(arrayOfSandwiches => {
+                dispatch({ type: GET_SANDWICHES, payload: arrayOfSandwiches })
+            })
+    }
+}
+
+export function getSandwich(sandwichObj) {
+    return function (dispatch) {
+        fetch(`http://localhost:3000/api/sandwiches/${sandwichObj.id}`)
+            .then(r => r.json())
+            .then(sandwich => {
+                dispatch({ type: GET_SANDWICH, payload: sandwich })
+            })
+    }
+}
+
+export function sandwichBeenClicked(){
+    return { type: SANDWICH_CLICK }
 }
 
 /// REVIEW ACTIONS ///
@@ -98,6 +135,24 @@ export function postReview(reviewObj) {
             .then(newReview => {
                 dispatch({ type: POST_REVIEW, payload: newReview})
                 console.log('Success:', newReview);
+            })
+    }
+}
+
+export function patchReview(reviewObj) {
+    console.log(reviewObj.id)
+    return function (dispatch) {
+        fetch(`http://localhost:3000/api/reviews/${reviewObj.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reviewObj),
+        })
+            .then(response => response.json())
+            .then(updatedReview => {
+                dispatch({ type: PATCH_REVIEW, payload: updatedReview})
+                console.log('Success:', updatedReview);
             })
     }
 }
