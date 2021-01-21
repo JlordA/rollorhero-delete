@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux'
-import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK } from './actionTypes'
+import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE } from './actionTypes'
 
 /// USER ACTIONS ///
 
@@ -85,6 +85,7 @@ export function getSandwich(sandwichObj) {
             .then(r => r.json())
             .then(sandwich => {
                 dispatch({ type: GET_SANDWICH, payload: sandwich })
+                console.log("success", sandwich)
             })
     }
 }
@@ -154,5 +155,26 @@ export function patchReview(reviewObj) {
                 dispatch({ type: PATCH_REVIEW, payload: updatedReview})
                 console.log('Success:', updatedReview);
             })
+    }
+}
+
+
+/// LIKE ACTIONS ///
+export function likeSandwich(newLike){
+    console.log(newLike)
+    return function (dispatch) {
+    fetch(`http://localhost:3000/api/likes/`,{
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newLike),
+              })
+              .then(response => response.json())
+              .then(newLike => {
+                dispatch({ type: POST_LIKE, payload: newLike})
+                console.log('Success:', newLike);
+            }
+        )
     }
 }

@@ -52,13 +52,13 @@ class FilterBar extends React.Component {
     ]
 
     sandwichClickHandler = (e, data) => {
-        console.log(data.value)
+        // console.log(data.value)
         this.setState({ sandwichStyle: data.value})
         this.props.filterSandwiches(data.value)
     }
    
     deliClickHandler = (e, data) => {
-        console.log(data.value)
+        // console.log(data.value)
         this.setState({ deliStyle: data.value})
         this.props.filterDelis(data.value)
     }

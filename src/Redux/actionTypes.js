@@ -6,6 +6,9 @@ export const GET_SANDWICHES = "GET_SANDWICHES"
 export const GET_SANDWICH = "GET_SANDWICH"
 export const SANDWICH_CLICK = "SANDWICH_CLICK"
 
+//LIKES//
+export const POST_LIKE = "POST_LIKE"
+
 //DELIS//
 export const GET_DELIS = "GET_DELIS"
 export const CURRENT_DELI = "CURRENT_DELI"

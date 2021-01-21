@@ -22,7 +22,7 @@ function DetailsContainer(props){
             return <Reviews />
         }
     }
-    console.log(props.sandwichBeenClicked)
+    // console.log(props.sandwichBeenClicked)
     return(
         <>
             {detailsRender()}

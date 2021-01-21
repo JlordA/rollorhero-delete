@@ -1,44 +1,58 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { getSandwich, likeSandwich } from '../Redux/actions'
 
-function Sandwich(props){
+class Sandwich extends React.Component{
 
-    const likeHandler = () => {
-        let newLike = {
-            sandwich_id: props.sandwich.id,
-            user_id: props.user.id
-         }
-         props.likeSandwich(newLike)
-         fetch(`http://localhost:3000/api/likes/`,{
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newLike),
-          })
-          .then(response => response.json())
-          .then(newLike => {
-            console.log('Success:', newLike);
-          })
+    state = {
+        sandwichId: 0
     }
 
-    return(
-        <div>
-            <h4>Name: {props.sandwich.name}</h4>
-            <p>Description: {props.sandwich.description}</p>
-            <p>Price: {props.sandwich.price}</p>
-            <p>Style: {props.sandwich.style}</p>
-            <p>Rating: {props.sandwich.rating}</p>
-            {/* <p>Rating: {console.log(props.sandwich)}</p> */}
-            <p>Likes: {props.sandwich.likes.length === 0 ? 0 : props.sandwich.likes.length}  <button onClick={likeHandler}>Like</button></p>
-        </div>
-    )
+    componentDidUpdate(){
+        if(this.props.sandwich.id !== this.state.sandwichId){
+            this.setState({ sandwichId: this.props.sandwich.id}, () => this.props.getSandwich(this.props.sandwich))
+            }
+    
+        }
+        
+        likeHandler = () => {
+            this.setState({ sandwichId: 0 }, () => {
+                let newLike = {
+                sandwich_id: this.props.sandwich.id,
+                user_id: this.props.user.id
+             }
+             this.props.sendLike(newLike)
+            })
+    }
+
+    render(){
+        let sandwich = this.props.sandwich        
+        return(
+            <div>
+                <h4>Name: {sandwich.name}</h4>
+                <p>Description: {sandwich.description}</p>
+                <p>Price: {sandwich.price}</p>
+                <p>Style: {sandwich.style}</p>
+                <p>Rating: {sandwich.rating}</p>
+                <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <button onClick={this.likeHandler}>Like</button></p>
+            </div>
+        )
+    }
 }
+
+function mdp(dispatch){
+    return{
+        sendLike: (newLike) => dispatch(likeSandwich(newLike)),
+        getSandwich: (sandwichObj) => dispatch(getSandwich(sandwichObj))
+    }
+}
+
 function msp(state){
     return{
         sandwich: state.sandwich,
+        likes: state.likes,
         user: state.user
     }
 }
 
-export default connect(msp)(Sandwich)
+export default connect(msp, mdp)(Sandwich)

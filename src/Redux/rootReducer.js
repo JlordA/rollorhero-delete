@@ -9,6 +9,7 @@ const defaultState = {
     sandwiches: [],
     sandwich: [],
     reviews: [],
+    likes: [],
     reviewFormClicked: false,
     reviewBeenClicked: false,
     reviewEditClicked: false,
@@ -159,20 +160,31 @@ function reviewEditClickedReducer(prevState = defaultState.reviewEditClicked, ac
     }
 }
 
+/// LIKE ///
+function likeReducer(prevState = defaultState.likes, action){
+    switch (action.type) {
+        case "POST_LIKE":
+            return [...prevState, action.payload]
+        default:
+            return prevState
+    }
+}
+
 const rootReducer = combineReducers({
     user: userReducer,
     delis: delisReducer,
-    reviewFormClicked: reviewClickReducer,
+    deli: deliReducer,
+    deliFilter: deliStyleReducer,
     sandwichFilter: sandwichStateReducer,
     sandwiches: sandwichesReducer,
     sandwich: sandwichReducer,
     sandwichBeenClicked: sandwichClickReducer,
-    deliFilter: deliStyleReducer,
+    likes: likeReducer,
+    reviewFormClicked: reviewClickReducer,
     reviews: reviewsReducer,
     reviewBeenClicked: reviewBeenClickReducer,
     reviewEditClicked: reviewEditClickedReducer,
-    review: reviewReducer,
-    deli: deliReducer
+    review: reviewReducer
 })
 
 export default rootReducer

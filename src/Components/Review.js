@@ -33,7 +33,7 @@ class Review extends React.Component {
     }
 
     sandwichOfDeliReview = () => {
-        console.log(this.props.sandwiches)
+        // console.log(this.props.sandwiches)
         return this.props.deli.sandwiches.map(deliSandwich => {
             return this.props.sandwiches.map(sandwich => {
                 if(deliSandwich.name === sandwich.name){
