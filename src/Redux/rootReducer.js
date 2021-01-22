@@ -15,7 +15,8 @@ const defaultState = {
     reviewEditClicked: false,
     sandwichBeenClicked: false,
     sandwichFilter: "",
-    deliFilter: ""
+    deliFilter: "",
+    deliLocation: null
 }
 
 
@@ -63,6 +64,15 @@ function deliStyleReducer(prevState = defaultState.deliFilter, action) {
     }
 }
 
+function deliSearchReducer(prevState = defaultState.deliFilter, action) {
+    switch (action.type) {
+        case "FIND_DELI":
+            console.log("inside deliSearchReducer: ", action.payload)
+            return action.payload
+        default:
+            return prevState
+    }
+}
 
 /// SANDWICH ///
 
@@ -161,6 +171,7 @@ function reviewEditClickedReducer(prevState = defaultState.reviewEditClicked, ac
 }
 
 /// LIKE ///
+
 function likeReducer(prevState = defaultState.likes, action){
     switch (action.type) {
         case "POST_LIKE":
@@ -170,11 +181,14 @@ function likeReducer(prevState = defaultState.likes, action){
     }
 }
 
+
+
 const rootReducer = combineReducers({
     user: userReducer,
     delis: delisReducer,
     deli: deliReducer,
     deliFilter: deliStyleReducer,
+    deliLocation: deliSearchReducer,
     sandwichFilter: sandwichStateReducer,
     sandwiches: sandwichesReducer,
     sandwich: sandwichReducer,

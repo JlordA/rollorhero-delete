@@ -1,33 +1,33 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { getSandwich, likeSandwich } from '../Redux/actions'
 
-class Sandwich extends React.Component{
+class Sandwich extends React.Component {
 
     state = {
         sandwichId: 0
     }
 
-    componentDidUpdate(){
-        if(this.props.sandwich.id !== this.state.sandwichId){
-            this.setState({ sandwichId: this.props.sandwich.id}, () => this.props.getSandwich(this.props.sandwich))
-            }
-    
+    componentDidUpdate() {
+        if (this.props.sandwich.id !== this.state.sandwichId) {
+            this.setState({ sandwichId: this.props.sandwich.id }, () => this.props.getSandwich(this.props.sandwich))
         }
-        
-        likeHandler = () => {
-            this.setState({ sandwichId: 0 }, () => {
-                let newLike = {
-                sandwich_id: this.props.sandwich.id,
-                user_id: this.props.user.id
-             }
-             this.props.sendLike(newLike)
-            })
+
     }
 
-    render(){
-        let sandwich = this.props.sandwich        
-        return(
+    likeHandler = () => {
+        this.setState({ sandwichId: 0 }, () => {
+            let newLike = {
+                sandwich_id: this.props.sandwich.id,
+                user_id: this.props.user.id
+            }
+            this.props.sendLike(newLike)
+        })
+    }
+
+    render() {
+        let sandwich = this.props.sandwich
+        return (
             <div>
                 <h4>Name: {sandwich.name}</h4>
                 <p>Description: {sandwich.description}</p>
@@ -40,15 +40,15 @@ class Sandwich extends React.Component{
     }
 }
 
-function mdp(dispatch){
-    return{
+function mdp(dispatch) {
+    return {
         sendLike: (newLike) => dispatch(likeSandwich(newLike)),
         getSandwich: (sandwichObj) => dispatch(getSandwich(sandwichObj))
     }
 }
 
-function msp(state){
-    return{
+function msp(state) {
+    return {
         sandwich: state.sandwich,
         likes: state.likes,
         user: state.user

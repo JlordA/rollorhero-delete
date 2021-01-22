@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux'
-import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE } from './actionTypes'
+import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI } from './actionTypes'
 
 /// USER ACTIONS ///
 
@@ -17,8 +17,8 @@ export function loginUser(userObj) {
             .then(response => response.json())
             .then(data => {
                 if (data.id) {
-                    // console.log("found user", data['username'])
-                    localStorage.setItem("USER_DATA", JSON.stringify(data))
+                    console.log("found user", data['username'])
+                    localStorage.setItem("USER_DATA", data)
                     dispatch({ type: LOGIN_USER, payload: data })
                 } else {
                     console.log("user not found")
@@ -38,6 +38,10 @@ export function setSandwichFilter(sandFilter) {
 
 export function setDeliFilter(deliFilter) {
     return { type: DELI_FILTER, payload: deliFilter }
+}
+
+export function setSearchLocation(deliLocation) {
+    return { type: FIND_DELI, payload: deliLocation }
 }
 
 /// DELI ACTIONS ///

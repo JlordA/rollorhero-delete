@@ -12,7 +12,8 @@ export const POST_LIKE = "POST_LIKE"
 //DELIS//
 export const GET_DELIS = "GET_DELIS"
 export const CURRENT_DELI = "CURRENT_DELI"
-export const GET_DELI ="GET_DELI"
+export const GET_DELI = "GET_DELI"
+export const FIND_DELI = "FIND_DELI"
 
 //FILTERS//
 export const DELI_FILTER = "DELI_FILTER"
