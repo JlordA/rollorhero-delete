@@ -14,6 +14,7 @@ const defaultState = {
     reviewBeenClicked: false,
     reviewEditClicked: false,
     sandwichBeenClicked: false,
+    deliFormClicked: false,
     sandwichFilter: "",
     deliFilter: "",
     deliLocation: null
@@ -39,6 +40,9 @@ function delisReducer(prevState = defaultState.delis, action) {
     switch (action.type) {
         case "GET_DELIS":
             return action.payload
+        case "POST_DELI":
+            console.log(action.payload)
+            return [...prevState, action.payload]
         default:
             return prevState
     }
@@ -64,11 +68,24 @@ function deliStyleReducer(prevState = defaultState.deliFilter, action) {
     }
 }
 
-function deliSearchReducer(prevState = defaultState.deliFilter, action) {
+function deliSearchReducer(prevState = defaultState.deliLocation, action) {
     switch (action.type) {
         case "FIND_DELI":
-            console.log("inside deliSearchReducer: ", action.payload)
+            // console.log("inside deliSearchReducer: ", action.payload)
             return action.payload
+        case "RESET_DELI_LOCATION":
+            console.log(prevState)
+            return null
+        default:
+            return prevState
+    }
+}
+
+function deliFormReducer(prevState = defaultState.deliFormClicked, action){
+    switch (action.type) {
+        case "DELI_FORM":
+            console.log("inside deliForm Reducer", action)
+            return !prevState
         default:
             return prevState
     }
@@ -189,6 +206,7 @@ const rootReducer = combineReducers({
     deli: deliReducer,
     deliFilter: deliStyleReducer,
     deliLocation: deliSearchReducer,
+    deliFormClicked: deliFormReducer,
     sandwichFilter: sandwichStateReducer,
     sandwiches: sandwichesReducer,
     sandwich: sandwichReducer,

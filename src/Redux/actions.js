@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux'
-import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI } from './actionTypes'
+import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI, DELI_FORM, POST_DELI, RESET_DELI_LOCATION } from './actionTypes'
 
 /// USER ACTIONS ///
 
@@ -44,6 +44,10 @@ export function setSearchLocation(deliLocation) {
     return { type: FIND_DELI, payload: deliLocation }
 }
 
+export function resetDeliLocation(){
+    return { type: RESET_DELI_LOCATION }
+}
+
 /// DELI ACTIONS ///
 
 export function getDelis() {
@@ -56,7 +60,7 @@ export function getDelis() {
     }
 }
 
-export function getDeliOfReview(deli_id){
+export function getDeliOfReview(deli_id) {
     // console.log(deli_id)
     return function (dispatch) {
         fetch(`http://localhost:3000/api/delis/${deli_id}`)
@@ -69,6 +73,29 @@ export function getDeliOfReview(deli_id){
 
 export function currentDeli(deliObj) {
     return { type: CURRENT_DELI, payload: deliObj }
+}
+
+export function renderDeliForm() {
+    console.log("working")
+    return { type: DELI_FORM }
+}
+
+export function postDeli(deliObj) {
+    console.log(deliObj)
+    return function (dispatch) {
+        fetch('http://localhost:3000/api/delis', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(deliObj),
+        })
+            .then(response => response.json())
+            .then(newDeli => {
+                dispatch({ type: POST_DELI, payload: newDeli })
+                console.log('Success:', newDeli);
+            })
+    }
 }
 
 /// SANDWICH ACTIONS ///
@@ -94,7 +121,7 @@ export function getSandwich(sandwichObj) {
     }
 }
 
-export function sandwichBeenClicked(){
+export function sandwichBeenClicked() {
     return { type: SANDWICH_CLICK }
 }
 
@@ -138,7 +165,7 @@ export function postReview(reviewObj) {
         })
             .then(response => response.json())
             .then(newReview => {
-                dispatch({ type: POST_REVIEW, payload: newReview})
+                dispatch({ type: POST_REVIEW, payload: newReview })
                 console.log('Success:', newReview);
             })
     }
@@ -156,7 +183,7 @@ export function patchReview(reviewObj) {
         })
             .then(response => response.json())
             .then(updatedReview => {
-                dispatch({ type: PATCH_REVIEW, payload: updatedReview})
+                dispatch({ type: PATCH_REVIEW, payload: updatedReview })
                 console.log('Success:', updatedReview);
             })
     }
@@ -164,21 +191,21 @@ export function patchReview(reviewObj) {
 
 
 /// LIKE ACTIONS ///
-export function likeSandwich(newLike){
+export function likeSandwich(newLike) {
     console.log(newLike)
     return function (dispatch) {
-    fetch(`http://localhost:3000/api/likes/`,{
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newLike),
-              })
-              .then(response => response.json())
-              .then(newLike => {
-                dispatch({ type: POST_LIKE, payload: newLike})
+        fetch(`http://localhost:3000/api/likes/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newLike),
+        })
+            .then(response => response.json())
+            .then(newLike => {
+                dispatch({ type: POST_LIKE, payload: newLike })
                 console.log('Success:', newLike);
             }
-        )
+            )
     }
 }

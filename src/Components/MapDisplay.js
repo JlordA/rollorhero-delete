@@ -1,8 +1,7 @@
 import React from 'react'
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { connect } from "react-redux"
-import { getDelis } from '../Redux/actions'
-import { renderReviewForm } from '../Redux/actions'
+import { getDelis, renderDeliForm, renderReviewForm } from '../Redux/actions'
 import InfoWindowEx from './InfoWindoEx'
 import { currentDeli } from '../Redux/actions'
 
@@ -24,7 +23,13 @@ class MapDisplay extends React.Component {
 
     allMarkers = () => {
         const filteredDeliArray = this.props.currentDelis.filter(deliEl => deliEl.style === this.props.deliFilter)
-        const filteredSandwichArray = this.props.currentDelis.filter(deliEl => deliEl.sandwiches[0].style === this.props.sandwichFilter)
+        const filteredSandwichArray = this.props.currentDelis.filter(deliEl => {
+            if(deliEl.sandwiches.length){
+                return deliEl.sandwiches[0].style === this.props.sandwichFilter
+            } else {
+                return null
+            }
+        })
         if (filteredDeliArray.length > 0) {
             return filteredDeliArray.map(deliEl => {
                 const lat = deliEl.lat
@@ -75,14 +80,6 @@ class MapDisplay extends React.Component {
             return <Marker name={name} address={this.state.address} hours={this.state.hours} onClick={this.onMarkerClick} position={{ lat: lat, lng: lng }}/>
     }
 
-    // searchMarker = () => {
-    //     function => fetch(place) =>obj
-    //     console.log(this.props.deliLocation.coordinates["lat"])
-    //     const name = this.props.deliLocation.place
-    //     const lat = this.props.deliLocation.coordinates["lat"]
-    //     const lng = this.props.deliLocation.coordinates["lng"]
-    //     return <Marker name={name} resultobj={this.props.resultobj} hours={this.props.resultobj.hrs} onClick={this.onMarkerClick} position={{ lat: lat, lng: lng }}/>
-    // }
 
     /// MAP ACTIONS ///
     onMarkerClick = (props, marker) => {
@@ -94,13 +91,13 @@ class MapDisplay extends React.Component {
         })
     }
 
-    centerMoved(mapProps, map) {
-        // console.log(mapProps, map)
-    }
+    // centerMoved(mapProps, map) {
+    //     // console.log(mapProps, map)
+    // }
 
-    mapClicked(mapProps, map, clickEvent) {
-        // console.log("Map props: ", mapProps, "map", map, "clickevent:", clickEvent)
-    }
+    // mapClicked(mapProps, map, clickEvent) {
+    //     // console.log("Map props: ", mapProps, "map", map, "clickevent:", clickEvent)
+    // }
 
     renderReviewFormHandler = () => {
         this.props.fetchForm()
@@ -111,25 +108,23 @@ class MapDisplay extends React.Component {
         })
     }
 
-    windowHasClosed = () => {
-        this.props.fetchForm()
+    // windowHasClosed = () => {
+    //     this.props.fetchForm()
+    // }
+
+    renderAddDeliFormHandler = () => {
+        // console.log("working")
+        this.props.showDeliForm()
     }
 
-    renderAddDeliFromHandler = () => {
-        console.log("working")
-        newDeli = {
-            
-        }
-    }
-
-    addDeliButtonsRender = () => {
-        if(this.props.delis.includes(this.state.name)){
-            return <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>
-        } else {
-            return <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>,
-                    <button type="button" onClick={this.renderAddDeliFromHandler}>Add Me</button>
-        }
-    }
+    // addDeliButtonsRender = () => {
+    //     if(this.props.delis.includes(this.state.name)){
+    //         return <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>
+    //     } else {
+    //         return <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>,
+    //                 <button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</button>
+    //     }
+    // }
 
     render() {
         // console.log(this.props.deliLocation)
@@ -163,7 +158,7 @@ class MapDisplay extends React.Component {
                             <h3>{this.state.selectedPlace.name}</h3>
                             <p>Address: {this.state.selectedPlace.address}</p>
                             <p>Hours: {this.state.selectedPlace.hours}</p>
-                            {this.props.currentDelis.includes(this.state.name) ? null : <button type="button" onClick={this.renderAddDeliFromHandler}>Add Me</button>}
+                            {this.props.currentDelis.includes(this.state.name) ? null : <button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</button>}
                             <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>
                         </div>
                     </InfoWindowEx>
@@ -187,7 +182,8 @@ function mdp(dispatch) {
     return {
         fetchDelis: () => dispatch(getDelis()),
         fetchForm: () => dispatch(renderReviewForm()),
-        setDeli: (deliObj) => dispatch(currentDeli(deliObj))
+        setDeli: (deliObj) => dispatch(currentDeli(deliObj)),
+        showDeliForm: () => dispatch(renderDeliForm())
     }
 }
 

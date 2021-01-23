@@ -13,11 +13,14 @@ export const POST_LIKE = "POST_LIKE"
 export const GET_DELIS = "GET_DELIS"
 export const CURRENT_DELI = "CURRENT_DELI"
 export const GET_DELI = "GET_DELI"
-export const FIND_DELI = "FIND_DELI"
+export const DELI_FORM = "DELI_FORM"
+export const POST_DELI = "POST_DELI"
 
 //FILTERS//
 export const DELI_FILTER = "DELI_FILTER"
 export const SANDWICH_FILTER = "SANDWICH_FILTER"
+export const FIND_DELI = "FIND_DELI"
+export const RESET_DELI_LOCATION = "RESET_DELI_LOCATION"
 
 //REVIEWS//
 export const GET_REVIEWS = "GET_REVIEWS"
