@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 
 const defaultState = {
     user: null,
+    logged_in: false,
     deli: [],
     review: {},
     delis: [],
@@ -14,7 +15,10 @@ const defaultState = {
     reviewBeenClicked: false,
     reviewEditClicked: false,
     sandwichBeenClicked: false,
+    sandwichFormClicked: false,
     deliFormClicked: false,
+    deliList: false,
+    deliClicked: false,
     sandwichFilter: "",
     deliFilter: "",
     deliLocation: null
@@ -26,13 +30,23 @@ const defaultState = {
 function userReducer(prevState = defaultState.user, action) {
     switch (action.type) {
         case "LOGIN_USER":
-            console.log("From userReducer: ", action.payload)
             return action.payload
+        case "LOGOUT_USER":
+            console.log("from root reducer")
+            return null
         default:
             return prevState
     }
 }
 
+function loginReducer(prevState = defaultState.logged_in, action) {
+    switch (action.type) {
+        case "USER_LOGGED_IN":
+            return !prevState
+        default:
+            return prevState
+    }
+}
 
 /// DELI ///
 
@@ -41,7 +55,6 @@ function delisReducer(prevState = defaultState.delis, action) {
         case "GET_DELIS":
             return action.payload
         case "POST_DELI":
-            console.log(action.payload)
             return [...prevState, action.payload]
         default:
             return prevState
@@ -74,7 +87,7 @@ function deliSearchReducer(prevState = defaultState.deliLocation, action) {
             // console.log("inside deliSearchReducer: ", action.payload)
             return action.payload
         case "RESET_DELI_LOCATION":
-            console.log(prevState)
+            // console.log(prevState)
             return null
         default:
             return prevState
@@ -84,8 +97,27 @@ function deliSearchReducer(prevState = defaultState.deliLocation, action) {
 function deliFormReducer(prevState = defaultState.deliFormClicked, action){
     switch (action.type) {
         case "DELI_FORM":
-            console.log("inside deliForm Reducer", action)
+            // console.log("inside deliForm Reducer", action)
             return !prevState
+        default:
+            return prevState
+    }
+}
+
+function deliListClickReducer(prevState = defaultState.deliList, action){
+    switch (action.type) {
+        case "RENDER_DELI_LIST":
+            // console.log(prevState)
+            return !prevState
+        default:
+            return prevState
+    }
+}
+
+function deliClickReducer(prevState = defaultState.deliClicked, action){
+    switch (action.type) {
+        case "DELI_CLICK":
+           return !prevState
         default:
             return prevState
     }
@@ -106,6 +138,8 @@ function sandwichesReducer(prevState = defaultState.sandwiches, action){
     switch (action.type) {
         case "GET_SANDWICHES":
             return action.payload
+        case "POST_SANDWICH":
+            return [...prevState, action.payload]
         default:
             return prevState
     }
@@ -123,6 +157,15 @@ function sandwichReducer(prevState = defaultState.sandwich, action){
 function sandwichClickReducer(prevState = defaultState.sandwichBeenClicked, action){
     switch (action.type) {
         case "SANDWICH_CLICK":
+            return !prevState
+        default:
+            return prevState
+    }
+}
+
+function sandwichFormClickReducer(prevState = defaultState.sandwichFormClicked, action){
+    switch (action.type) {
+        case "SANDWICH_FORM":
             return !prevState
         default:
             return prevState
@@ -202,6 +245,7 @@ function likeReducer(prevState = defaultState.likes, action){
 
 const rootReducer = combineReducers({
     user: userReducer,
+    logged_in: loginReducer,
     delis: delisReducer,
     deli: deliReducer,
     deliFilter: deliStyleReducer,
@@ -216,7 +260,10 @@ const rootReducer = combineReducers({
     reviews: reviewsReducer,
     reviewBeenClicked: reviewBeenClickReducer,
     reviewEditClicked: reviewEditClickedReducer,
-    review: reviewReducer
+    review: reviewReducer,
+    deliList: deliListClickReducer,
+    deliClicked: deliClickReducer,
+    sandwichFormClicked: sandwichFormClickReducer
 })
 
 export default rootReducer

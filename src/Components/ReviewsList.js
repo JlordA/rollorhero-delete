@@ -1,41 +1,41 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {getReviews} from '../Redux/actions'
-import Review from './Review'
+import { connect } from 'react-redux'
+import { getReviews } from '../Redux/actions'
+// import Review from './Review'
 import ReviewListItem from './ReviewListItem'
 
-class Reviews extends React.Component{
+class Reviews extends React.Component {
 
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.reviewList()
     }
 
     renderReviewList = () => {
         return this.props.reviews.map(reviewEl => {
-            return <ReviewListItem key={reviewEl.id} reviewObj={reviewEl}/>
+            return <ReviewListItem key={reviewEl.id} reviewObj={reviewEl} />
         })
     }
 
-    renderReviewItem = () => {}
+    renderReviewItem = () => { }
 
-    render(){
-        return(
-        <>
-        <h3>Reviews</h3>
-        {this.renderReviewList()}
-        </>
+    render() {
+        return (
+            <div className="tab-div" >
+                <h3>Reviews</h3>
+                {this.renderReviewList()}
+            </div>
         )
     }
 }
 
-function msp(state){
-    return{
+function msp(state) {
+    return {
         reviews: state.reviews
     }
 }
 
-function mdp(dispatch){
+function mdp(dispatch) {
     return {
         reviewList: () => dispatch(getReviews())
     }

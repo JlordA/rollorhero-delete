@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { setSandwichFilter, setSearchLocation, setDeliFilter } from '../Redux/actions'
+import { setSandwichFilter, setSearchLocation, setDeliFilter, renderDelisClick } from '../Redux/actions'
 import { Button } from 'semantic-ui-react'
 import { GoogleComponent } from 'react-google-location'
 
@@ -79,9 +79,9 @@ class FilterBar extends React.Component {
         />
     )
 
-    hoursClickHandler = () => {
-        console.log("clicked:", this.state.currentDateTime)
-        // this.props.currentDelis.filter(deliEl => deliEl.hours_open.includes(this.state.currentDateTime))
+    delisClickHandler = () => {
+        console.log("testing")
+        this.props.renderDelis()
     }
 
     searchHandler = (e) => {
@@ -107,7 +107,7 @@ class FilterBar extends React.Component {
                 {this.deliDropdown()}
                 <br></br>
                 <br></br>
-                <Button onClick={this.hoursClickHandler}> Whats Open </Button>
+                <Button onClick={this.delisClickHandler}> Delis </Button>
                 <br></br>
                 <br></br>
                 Find Your Spot
@@ -121,7 +121,7 @@ class FilterBar extends React.Component {
                     locationListStyle={'custom-style-list'}
                     onChange={this.searchHandler}
                      />
-                     <button onClick={this.sendSearch}>Search</button>
+                    <Button onClick={this.sendSearch}>Search</Button>
                 </div>
             </div>
 
@@ -139,7 +139,8 @@ function mdp(dispatch) {
     return {
         filterSandwiches: (sandStyle) => dispatch(setSandwichFilter(sandStyle)),
         filterDelis: (deliStyle) => dispatch(setDeliFilter(deliStyle)),
-        findDeli: (deliLocation) => dispatch(setSearchLocation(deliLocation))
+        findDeli: (deliLocation) => dispatch(setSearchLocation(deliLocation)),
+        renderDelis: () => dispatch(renderDelisClick())
     }
 }
 export default connect(msp, mdp)(FilterBar)

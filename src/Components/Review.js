@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { reviewEditClicked, reviewClick, getSandwiches } from '../Redux/actions'
 import SandwichListItem from './SandwichListItem'
+import { Button } from 'semantic-ui-react'
 
 class Review extends React.Component {
 
@@ -19,7 +20,7 @@ class Review extends React.Component {
 
     renderButton = () => {
         if (this.props.user.id === this.props.review.user_id) {
-            return <button onClick={this.editClickHandler}>Edit</button>
+            return <Button onClick={this.editClickHandler}>Edit</Button>
         }
     }
 
@@ -48,19 +49,19 @@ class Review extends React.Component {
         const deli = this.props.deli
         return (
             <>
-            Deli:
-                <h4>{this.props.deli.name}</h4>
             Title:
-            <h4>{this.props.review.title}</h4>
+                <h4>{this.props.review.title}</h4>
             Date:
                 <p>{this.dateHandler(this.props.review.date)}</p>
+            Deli:
+                <h4>{this.props.deli.name}</h4>
             Rating:
                 <p>{this.props.review.rating}</p>
             Body:
                 <p>{this.props.review.body}</p>
             Sandwiches Reviewed:
                 <h5>{deli.length === 0 ? <p>fetching sandwiches</p> : this.sandwichOfDeliReview()}</h5>
-                <button onClick={this.reviewsClickHander}>All Reviews</button>
+                <Button onClick={this.reviewsClickHander}>All Reviews</Button>
                 {this.renderButton()}
             </>
         )

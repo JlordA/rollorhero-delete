@@ -1,15 +1,33 @@
 import React from 'react'
-import { Header, Segment } from 'semantic-ui-react'
+import { Button, Header, Segment } from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {userLoggedIn, logOutUser} from '../Redux/actions'
 
 
 
-const Banner = () => (
-    <div>
-        <Segment>
-            <Header as='h1' color='brown' textAlign='center'>ROLL OR HERO</Header>
-        </Segment>
-    </div>
-)
+function Banner(props){
 
-export default Banner
+    const clickHandler = () => {
+        props.logOutUser()
+        props.userLoggedIn()
+    }
+
+    return(
+        <div>
+            <Segment>
+                <Header as='h1' color='brown' textAlign='center'>ROLL OR HERO</Header>
+                <Button onClick={clickHandler}>Log Out</Button>
+            </Segment>
+        </div>
+    )
+}
+
+function mdp(dispatch){
+    return{
+        userLoggedIn: () => dispatch(userLoggedIn()),
+        logOutUser: () => dispatch(logOutUser())
+    }
+}
+
+export default connect(null, mdp)(Banner)
 

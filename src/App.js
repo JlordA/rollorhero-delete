@@ -17,10 +17,20 @@ class App extends React.Component{
 
     return (
       <>
-        <LoginForm/>
+        {this.props.logged_in === false 
+        ? 
+        <LoginForm/> 
+        : 
         <HomeContainer />
+        }        
       </>
     );
+  }
+}
+
+function msp(state){
+  return{
+    logged_in: state.logged_in
   }
 }
 
@@ -30,5 +40,5 @@ function mdp(dispatch){
   }
 }
 
-export default connect(null, mdp)(App);
+export default connect(msp, mdp)(App);
 

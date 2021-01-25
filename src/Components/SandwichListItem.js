@@ -10,9 +10,8 @@ class SandwichListItem extends React.Component {
     }
 
     render() {
-        // console.log(this.props.sandwichObj.name)
         return (
-            <ul>
+            <ul className="ul">
                 <li onClick={this.clickHandler}>{this.props.sandwichObj.name}</li>
             </ul>
         )

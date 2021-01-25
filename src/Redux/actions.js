@@ -1,10 +1,10 @@
-import { bindActionCreators } from 'redux'
-import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI, DELI_FORM, POST_DELI, RESET_DELI_LOCATION } from './actionTypes'
+// import { bindActionCreators } from 'redux'
+import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI, DELI_FORM, POST_DELI, RESET_DELI_LOCATION, RENDER_DELI_LIST, USER_LOGGED_IN, DELI_CLICK, SANDWICH_FORM, POST_SANDWICH, LOGOUT_USER, POST_DELI_SANDWICH } from './actionTypes'
 
 /// USER ACTIONS ///
 
 export function loginUser(userObj) {
-    console.log(userObj)
+    // console.log(userObj)
     return function (dispatch) {
         fetch('http://localhost:3000/api/users/login', {
             method: 'POST',
@@ -18,7 +18,7 @@ export function loginUser(userObj) {
             .then(data => {
                 if (data.id) {
                     console.log("found user", data['username'])
-                    localStorage.setItem("USER_DATA", data)
+                    localStorage.setItem("USER_DATA", JSON.stringify(data))
                     dispatch({ type: LOGIN_USER, payload: data })
                 } else {
                     console.log("user not found")
@@ -28,6 +28,15 @@ export function loginUser(userObj) {
             .catch(console.log)
     }
 
+}
+
+export function logOutUser(){
+    localStorage.removeItem("USER_DATA")
+    return { type: LOGOUT_USER }
+}
+
+export function userLoggedIn(){
+    return { type: USER_LOGGED_IN }
 }
 
 /// FILTER ACTIONS ///
@@ -47,6 +56,12 @@ export function setSearchLocation(deliLocation) {
 export function resetDeliLocation(){
     return { type: RESET_DELI_LOCATION }
 }
+
+export function renderDelisClick(){
+    // console.log("in action")
+    return { type: RENDER_DELI_LIST }
+}
+
 
 /// DELI ACTIONS ///
 
@@ -98,6 +113,10 @@ export function postDeli(deliObj) {
     }
 }
 
+export function deliClick(){
+    return { type: DELI_CLICK }
+}
+
 /// SANDWICH ACTIONS ///
 
 export function getSandwiches() {
@@ -121,8 +140,54 @@ export function getSandwich(sandwichObj) {
     }
 }
 
+export function postSandwichAndDeliSandwich(sandwichObj, deliId){
+    return function (dispatch) {
+        fetch('http://localhost:3000/api/sandwiches', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sandwichObj),
+        })
+            .then(response => response.json())
+            .then(newSandwich => {
+                dispatch({ type: POST_SANDWICH, payload: newSandwich })
+                console.log('Success:', newSandwich);
+                postDeliSandwich(newSandwich.id, deliId )
+            })
+    }
+}
+
+
+export function postDeliSandwich(sandwichObjId, deliId){
+    const newDeliSandwich = {
+        sandwich_id: sandwichObjId,
+        deli_id: deliId
+    }
+    // return function (dispatch) {
+        fetch('http://localhost:3000/api/deli_sandwiches', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newDeliSandwich),
+        })
+            .then(response => response.json())
+            .then(newDeliSandwich => {
+                // dispatch({ type: POST_DELI_SANDWICH, payload: newDeliSandwich })
+                console.log('Success:', newDeliSandwich);
+            })
+    // }
+}
+
+
+
 export function sandwichBeenClicked() {
     return { type: SANDWICH_CLICK }
+}
+
+export function renderSandwichForm(){
+    return { type: SANDWICH_FORM }
 }
 
 /// REVIEW ACTIONS ///

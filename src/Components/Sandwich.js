@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getSandwich, likeSandwich } from '../Redux/actions'
+import { Button } from  'semantic-ui-react'
 
 class Sandwich extends React.Component {
 
@@ -34,7 +35,7 @@ class Sandwich extends React.Component {
                 <p>Price: {sandwich.price}</p>
                 <p>Style: {sandwich.style}</p>
                 <p>Rating: {sandwich.rating}</p>
-                <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <button onClick={this.likeHandler}>Like</button></p>
+                <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></p>
             </div>
         )
     }

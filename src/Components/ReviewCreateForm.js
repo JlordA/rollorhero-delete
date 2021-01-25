@@ -13,22 +13,15 @@ class ReviewForm extends React.Component {
         body: "",
         rating: ""
     }
-    // handleChange = (e, { value }) => this.setState({ value })
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
 
     }
-    // render() {
-    //     return (
-    //         <>
 
     submitHandler = (e) => {
         e.preventDefault()
-        // console.log(this.props.user.id)
-        // console.log(this.props.deli.id)
-
-        // console.log(this.state)
+       
         let reviewObj = {
             title: this.state.title,
             date: this.state.date,
@@ -40,8 +33,8 @@ class ReviewForm extends React.Component {
         this.props.sendForm(reviewObj)
         this.props.fetchForm()
     }
+    
     render() {
-        // const { value } = this.state
         return (
         //     <Form onSubmit={this.submitHandler}>
         //         <Form.Group widths='equal'>
@@ -125,7 +118,7 @@ class ReviewForm extends React.Component {
                 <br></br>
                 <textarea name="body" placeholder="tell us about your experience" value={this.state.body} onChange={this.handleChange}></textarea><br></br>
                 <input type="number" name="rating" value={this.state.rating} onChange={this.handleChange}/><br></br>
-                <button>Submit</button>
+                <Button>Submit</Button>
             </form>
         </>
         )

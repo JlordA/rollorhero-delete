@@ -13,8 +13,8 @@ class ReviewListItem extends React.Component{
 
     render(){
         return(
-            <ul>
-                <li onClick={this.clickHandler}> Deli: {this.props.reviewObj.deli.name}       Title: {this.props.reviewObj.title}         Rating: {this.props.reviewObj.rating} </li>
+            <ul className="ul">
+                <li onClick={this.clickHandler}> Title: {this.props.reviewObj.title}        Deli: {this.props.reviewObj.deli.name}         Rating: {this.props.reviewObj.rating} </li>
             </ul>
         )
     }

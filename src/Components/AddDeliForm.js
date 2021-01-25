@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {postDeli, renderDeliForm, resetDeliLocation} from '../Redux/actions'
+import { Button } from 'semantic-ui-react'
 
 class AddDeliForm extends React.Component{
 
@@ -45,7 +46,7 @@ class AddDeliForm extends React.Component{
                 <p><input type="text" name="hours_open" placeholder="hours" value={this.state.hours_open} onChange={this.changeHanler}/></p>
                 <p><input type="text" name="neighborhood" placeholder="neighborhood" value={this.state.neighborhood} onChange={this.changeHanler}/></p>
                 <p><input type="text" name="borough" placeholder="borough"value={this.state.borough} onChange={this.changeHanler}/></p>
-                <button>Add Deli</button>
+                <Button>Add Deli</Button>
             </form>
         )
     }

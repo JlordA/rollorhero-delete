@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { getDelis, renderDeliForm, renderReviewForm } from '../Redux/actions'
 import InfoWindowEx from './InfoWindoEx'
 import { currentDeli } from '../Redux/actions'
+import { Button } from 'semantic-ui-react'
 
 
 class MapDisplay extends React.Component {
@@ -41,7 +42,6 @@ class MapDisplay extends React.Component {
             return filteredSandwichArray.map(deliEl => {
                 const lat = deliEl.lat
                 const lng = deliEl.lng
-                // console.log(deliEl)
                 return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
                     position={{ lat: lat, lng: lng }} />
             })
@@ -49,7 +49,6 @@ class MapDisplay extends React.Component {
             return this.props.currentDelis.map(deliEl => {
                 const lat = deliEl.lat
                 const lng = deliEl.lng
-                // console.log(deliEl)
                 return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
                     position={{ lat: lat, lng: lng }} />
             })
@@ -67,13 +66,10 @@ class MapDisplay extends React.Component {
         fetch(proxyurl + url + process.env.REACT_APP_API_KEY)
         .then(r => r.json())
         .then(data => {
-                // console.log(data.candidates[0]["opening_hours"])
                 if(this.state.address === ""){
 
                     this.setState({ address: data.candidates[0]["formatted_address"], hours: data.candidates[0]["hours_open"] })
                 }
-                // const address = data.candidates[0]["formatted_address"] 
-                // const hours = data.candidates[0]["hours_open"]
             })
             const lat = this.props.deliLocation.coordinates["lat"]
             const lng = this.props.deliLocation.coordinates["lng"]
@@ -83,7 +79,6 @@ class MapDisplay extends React.Component {
 
     /// MAP ACTIONS ///
     onMarkerClick = (props, marker) => {
-        // console.log("props:", props.mapCenter, "marker", marker)
         this.setState({
             showingInfoWindow: true,
             activeMarker: marker,
@@ -131,7 +126,7 @@ class MapDisplay extends React.Component {
         return (
             <div>
                 <Map
-                    style={{ width: '600px', height: '400px' }}
+                    style={{ width: '800px', height: '500px' }}
                     google={this.props.google}
                     zoom={13}
                     initialCenter={{
@@ -158,8 +153,8 @@ class MapDisplay extends React.Component {
                             <h3>{this.state.selectedPlace.name}</h3>
                             <p>Address: {this.state.selectedPlace.address}</p>
                             <p>Hours: {this.state.selectedPlace.hours}</p>
-                            {this.props.currentDelis.includes(this.state.name) ? null : <button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</button>}
-                            <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>
+                            {this.props.currentDelis.includes(this.state.name) ? null : <Button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</Button>}
+                            <Button type="button" onClick={this.renderReviewFormHandler}>Review Me</Button>
                         </div>
                     </InfoWindowEx>
                 </Map>
@@ -194,50 +189,4 @@ export default connect(msp, mdp)(GoogleApiWrapper({
 
 
 
-//
-//
-//
-// from roman
-// {this.props.deliLocation.coordinates === null && this.props.currentDelis.length < 0 
-//      ? 
-//      <h1>Loading</h1> 
-//              :
-//              this.props.deliLocation.coordinates !== null
-//                  ?
-//                  this.searchMarker()
-//                      :
-//                      this.props.currentDelis.length > 0 
-//                          ?
-//                          this.allMarkers()
-//                              :
-//                              null }
 
-
-// from james 1st
-{/* {this.props.deliLocation.coordi !== null
-                        ? 
-                        this.searchMarker() 
-                            :
-                            this.props.currentDelis.length > 0
-                                ?
-                                this.allMarkers()
-                                    :
-                                    <h1>Loading</h1>} */}
-//                                                                                          
-{/* {
-                            ? 
-                            this.searchMarker()
-                        }
-                    {/* {this.props.deliLocation.coordinates && this.props.currentDelis.length < 0 
-                        ? 
-                        <h1>Loading</h1> 
-                                :
-                                this.props.deliLocation.coordinates !== null
-                                    ?
-                                    this.searchMarker()
-                                        :
-                                        this.props.currentDelis.length > 0 
-                                            ?
-                                            this.allMarkers()
-                                                :
-                                                // null } */} 

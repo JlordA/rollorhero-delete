@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {loginUser} from '../Redux/actions' 
+import {loginUser, userLoggedIn} from '../Redux/actions' 
+import { Button } from 'semantic-ui-react'
 
 class LoginForm extends React.Component{
 
@@ -16,6 +17,7 @@ class LoginForm extends React.Component{
     submitHandler = (e) => {
         e.preventDefault()
         this.props.currentUser(this.state)
+        this.props.userLoggedIn()
     }
 
     render(){
@@ -24,8 +26,8 @@ class LoginForm extends React.Component{
             <form onSubmit={this.submitHandler}>
                 <h3>Login Form</h3>
                 <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.changeHandler}/>
-                <input type="text" name="password" placeholder="password" value={this.state.password} onChange={this.changeHandler}/>
-                <button>Login</button>
+                <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.changeHandler}/>
+                <Button>Login</Button>
             </form>
         )
     }
@@ -33,7 +35,8 @@ class LoginForm extends React.Component{
 
 function mdp(dispatch){
     return{
-        currentUser: (userObj) => dispatch(loginUser(userObj))
+        currentUser: (userObj) => dispatch(loginUser(userObj)),
+        userLoggedIn: () => dispatch(userLoggedIn())
     }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux"
 import { patchReview, reviewEditClicked } from '../Redux/actions'
+import { Button } from 'semantic-ui-react'
 
 class EditReviewForm extends React.Component {
     
@@ -34,7 +35,7 @@ class EditReviewForm extends React.Component {
                 <br></br>
                 <textarea name="body" placeholder="tell us about your experience" value={this.state.body} onChange={this.handleChange}></textarea><br></br>
                 <input type="number" name="rating" value={this.state.rating} onChange={this.handleChange}/><br></br>
-                <button>Submit</button>
+                <Button>Submit</Button>
             </form>
         </>
         )
