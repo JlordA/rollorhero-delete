@@ -124,9 +124,9 @@ class MapDisplay extends React.Component {
     render() {
         // console.log(this.props.deliLocation)
         return (
-            <div>
+            <div className="mapSizeDiv" >
                 <Map
-                    style={{ width: '800px', height: '500px' }}
+                    style={{ width: '48.8vw', height: '63vh' }}
                     google={this.props.google}
                     zoom={13}
                     initialCenter={{

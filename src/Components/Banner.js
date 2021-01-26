@@ -15,7 +15,7 @@ function Banner(props){
     return(
         <div>
             <Segment>
-                <Header as='h1' color='brown' textAlign='center'>ROLL OR HERO</Header>
+                <Header as='h1' color='brown' textAlign='center'>ROLL or HERO</Header>
                 <Button onClick={clickHandler}>Log Out</Button>
             </Segment>
         </div>

@@ -96,11 +96,11 @@ class FilterBar extends React.Component {
     render() {
         // console.log(this.state.place)
         return (
-            <div>
+            <div className="filters">
+                <h2>Search The City</h2>
                 <br></br>
-                <h3>Search The City</h3>
                 <br></br>
-                <br></br>
+                <h3>Filters</h3>
                 {this.sandwichDropdown()}
                 <br></br>
                 <br></br>
@@ -110,7 +110,7 @@ class FilterBar extends React.Component {
                 <Button onClick={this.delisClickHandler}> Delis </Button>
                 <br></br>
                 <br></br>
-                Find Your Spot
+                <h3>Find A Deli</h3>
                 <div>
                 <GoogleComponent
                     apiKey={API_KEY}

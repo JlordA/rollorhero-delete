@@ -29,11 +29,13 @@ class EditReviewForm extends React.Component {
         <>
         <h3>Write A Review</h3>
             <form onSubmit={this.submitHandler}>
+                <p>Title</p>
                 <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.handleChange}/>
-                <br></br>
+                <p>Date</p>
                 <input type="date" name="date" value={this.state.date} onChange={this.handleChange}/>
-                <br></br>
-                <textarea name="body" placeholder="tell us about your experience" value={this.state.body} onChange={this.handleChange}></textarea><br></br>
+                <p>Body</p>
+                <textarea name="body" placeholder="tell us about your experience" value={this.state.body} onChange={this.handleChange}></textarea>
+                <p>Rating</p>
                 <input type="number" name="rating" value={this.state.rating} onChange={this.handleChange}/><br></br>
                 <Button>Submit</Button>
             </form>

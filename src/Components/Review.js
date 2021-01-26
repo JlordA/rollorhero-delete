@@ -49,15 +49,10 @@ class Review extends React.Component {
         const deli = this.props.deli
         return (
             <>
-            Title:
                 <h4>{this.props.review.title}</h4>
-            Date:
                 <p>{this.dateHandler(this.props.review.date)}</p>
-            Deli:
                 <h4>{this.props.deli.name}</h4>
-            Rating:
                 <p>{this.props.review.rating}</p>
-            Body:
                 <p>{this.props.review.body}</p>
             Sandwiches Reviewed:
                 <h5>{deli.length === 0 ? <p>fetching sandwiches</p> : this.sandwichOfDeliReview()}</h5>

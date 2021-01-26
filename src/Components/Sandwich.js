@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getSandwich, likeSandwich } from '../Redux/actions'
+import { getSandwich, likeSandwich, sandwichBeenClicked } from '../Redux/actions'
 import { Button } from  'semantic-ui-react'
 
 class Sandwich extends React.Component {
@@ -26,6 +26,10 @@ class Sandwich extends React.Component {
         })
     }
 
+    allSandwichRender = () => {
+        this.props.sandwichBeenClicked()
+    }
+
     render() {
         let sandwich = this.props.sandwich
         return (
@@ -36,6 +40,7 @@ class Sandwich extends React.Component {
                 <p>Style: {sandwich.style}</p>
                 <p>Rating: {sandwich.rating}</p>
                 <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></p>
+                <Button onClick={this.allSandwichRender}>All Sandwiches</Button>
             </div>
         )
     }
@@ -44,7 +49,8 @@ class Sandwich extends React.Component {
 function mdp(dispatch) {
     return {
         sendLike: (newLike) => dispatch(likeSandwich(newLike)),
-        getSandwich: (sandwichObj) => dispatch(getSandwich(sandwichObj))
+        getSandwich: (sandwichObj) => dispatch(getSandwich(sandwichObj)),
+        sandwichBeenClicked: () => dispatch(sandwichBeenClicked())
     }
 }
 

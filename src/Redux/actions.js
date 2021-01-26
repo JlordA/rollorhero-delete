@@ -91,12 +91,12 @@ export function currentDeli(deliObj) {
 }
 
 export function renderDeliForm() {
-    console.log("working")
+    // console.log("working")
     return { type: DELI_FORM }
 }
 
 export function postDeli(deliObj) {
-    console.log(deliObj)
+    // console.log(deliObj)
     return function (dispatch) {
         fetch('http://localhost:3000/api/delis', {
             method: 'POST',
@@ -237,7 +237,7 @@ export function postReview(reviewObj) {
 }
 
 export function patchReview(reviewObj) {
-    console.log(reviewObj.id)
+    // console.log(reviewObj.id)
     return function (dispatch) {
         fetch(`http://localhost:3000/api/reviews/${reviewObj.id}`, {
             method: 'PATCH',

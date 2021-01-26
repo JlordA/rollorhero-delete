@@ -9,71 +9,103 @@ import AddDeliForm from '../Components/AddDeliForm'
 import DeliList from '../Components/DeliList'
 import Deli from '../Components/Deli'
 import CreateSandwichForm from '../Components/CreateSandwichForm'
+import SandwichList from '../Components/SandwichList'
 
-function DetailsContainer(props) {
+class DetailsContainer extends React.Component {
 
-    const detailsRender = () => {
-        if (props.reviewFormClicked === true) {
+    state = {
+        tab: "review"
+    }
+
+    // detailsRender = () => {
+    //     if (this.props.reviewFormClicked === true) {
+    //         return <ReviewCreateForm />
+    //     } else if (this.props.deliFormClicked === true) {
+    //         return <AddDeliForm />
+    //     } else if (this.props.sandwichBeenClicked === true) {
+    //         return <Sandwich />
+    //     } else if (this.props.reviewEditClicked === true) {
+    //         return <EditReviewForm />
+    //     } else if (this.props.reviewBeenClicked === true) {
+    //         return <Review />
+    //     } else if (this.props.sandwichFormClicked === true) {
+    //         return <CreateSandwichForm />
+    //     } else if (this.props.deliClicked === true) {
+    //         return <Deli />
+    //     } else if (this.props.deliList === true) {
+    //         return <DeliList />
+    //     } else {
+    //         return <Reviews />
+    //     }
+    // }
+
+    reviewTabRender = () => {
+        if (this.props.reviewFormClicked === true) {
             return <ReviewCreateForm />
-        } else if (props.deliFormClicked === true) {
-            return <AddDeliForm />
-        } else if (props.sandwichBeenClicked === true) {
-            return <Sandwich />
-        } else if (props.reviewEditClicked === true) {
+        } else if (this.props.reviewEditClicked === true) {
             return <EditReviewForm />
-        } else if (props.reviewBeenClicked === true) {
+        } else if (this.props.reviewBeenClicked === true) {
             return <Review />
-        } else if (props.sandwichFormClicked === true) {
+        } else {
+            return <Reviews />
+        }
+    }
+
+    deliTabRender = () => {
+        if (this.props.deliFormClicked === true) {
+            return <AddDeliForm />
+        } else if (this.props.deliClicked === true) {
+            return <Deli />
+        } else {
+            return <DeliList />
+        }
+    }
+
+    sandwichTabRender = () => {
+        if (this.props.sandwichFormClicked === true) {
             return <CreateSandwichForm />
-        } else if (props.deliClicked === true) {
-            return <Deli />
-        } else if (props.deliList === true) {
-            return <DeliList />
+        } else if (this.props.sandwichBeenClicked === true) {
+            return <Sandwich />
         } else {
-            return <Reviews />
+            return <SandwichList />
         }
     }
 
-    const reviewTabRender = () => {
-        if (props.reviewFormClicked === true) {
-            return <ReviewCreateForm />
-        } else if (props.reviewEditClicked === true) {
-            return <EditReviewForm />
-        } else if (props.reviewBeenClicked === true) {
-            return <Review />
-        } else {
-            return <Reviews />
-        }
+    clickHandler = (e) => {
+        this.setState({ tab: e.target.id })
     }
 
-    const deliTabRender = () => {
-        if (props.deliFormClicked === true) {
-            return <AddDeliForm />
-        } else if (props.deliClicked === true) {
-            return <Deli />
+    tabRender = () => {
+        if (this.state.tab === "review") {
+            return this.reviewTabRender()
+        } else if (this.state.tab === "deli") {
+            return this.deliTabRender()
         } else {
-            return <DeliList />
+            return this.sandwichTabRender()
         }
     }
-
-    return (
-        <>
-            <div className="tab-parent">
-                <div onClick={reviewTabRender}className="child-tab">
-                    <p>REVIEWS</p>
+    render() {
+        // console.log(this.state.tab)
+        return (
+            <>
+                <div  >
+                    <div id="review" className="child" onClick={this.clickHandler}>
+                        <span>REVIEWS</span>
+                    </div>
+                    <div id="deli" className="child" onClick={this.clickHandler}>
+                        <span>DELIS</span>
+                    </div>
+                    <div id="sandwich" className="child" onClick={this.clickHandler}>
+                        <span>SANDWICHES</span>
+                    </div>
                 </div>
-                <div onClick={deliTabRender} className="child-tab">
-                    <p>DELIS</p>
+                <div>
+                    {this.tabRender()}
+                    {/* {this.detailsRender()} */}
                 </div>
-                <div className="child-tab">
-                    <p>SANDWICHES</p>
-                </div>
-            </div>
-            <div>
-                {detailsRender()}
-            </div>
-        </>
-    )
+            </>
+        )
+    }
 }
 
 function msp(state) {

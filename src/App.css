@@ -1,38 +1,47 @@
 
 /* HOME CSS */
 
-.homeContainerDiv {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
+    .homeContainerDiv {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(12, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+        background-color: #F0A868;    
     }
     
-    .bannerDiv { grid-area: 2 / 2 / 3 / 8; }
-
-    .buttonbarDiv { grid-area: 3 / 2 / 8 / 4; 
-
+    .bannerDiv { grid-area: 2 / 2 / 3 / 8; 
+        background-color: #FFE8C2;
     }
 
-    .mapDiv { grid-area: 3 / 4 / 8 / 8; }
+    .buttonbarDiv { grid-area: 3 / 2 / 8 / 4; 
+        border: solid;
+        background-color: #FFE8C2;
+    }
+
+    .mapDiv { grid-area: 3 / 4 / 8 / 8; 
+        border: solid;
+    }
 
     .detailsContainerDiv { grid-area: 8 / 2 / 12 / 8; 
+        border: solid;
+        background-color: #FFE8C2;
+        max-height: 600px;
     }
     
     .tab-parent{
-        display: flex;
-        flex-wrap: wrap;
-        /* justify-content: space-around; */
+        /* display: flex; */
+        /* flex-wrap: wrap; */
+        /* justify-content: space-evenly; */
     }
 
-    .child-tab{
+    .child{
         display: inline-block;
-        width: 25px;
+        width: 50%;
         margin: 2px;
         padding:1% 16%;
-        background: rgb(151, 111, 42);
-        color: rgb(5, 5, 5);
+        background: #1E1E24;
+        color: rgb(248, 245, 245);
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
         border-radius: 4px;
@@ -40,21 +49,30 @@
 
     .tab-div {
         overflow: auto;
-        height: 400px;
+        height: 280px;
         margin: 20px;
         padding: 10px;
     }
     
     .ul{
         list-style-type: none;
+        /* max-height: 200px; */
     }
 
     .topSandwichesDiv { grid-area: 8 / 3 / 12 / 5; }
 
     .hoursDiv { grid-area: 8 / 5 / 12 / 7; }
 
+    .filters{
+        padding-top: 20px;
+        padding-left: 20px;
+        text-align: center;
+    }
 
-
+    .login-form{
+        background-color: #F0A868;
+        text-align: center;
+    }
 
 /* <div class="homeContainerDiv">
     <div class="bannerDiv"> </div>

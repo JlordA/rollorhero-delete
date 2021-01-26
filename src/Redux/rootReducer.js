@@ -32,7 +32,7 @@ function userReducer(prevState = defaultState.user, action) {
         case "LOGIN_USER":
             return action.payload
         case "LOGOUT_USER":
-            console.log("from root reducer")
+            // console.log("from root reducer")
             return null
         default:
             return prevState
@@ -191,11 +191,11 @@ function reviewsReducer(prevState = defaultState.reviews, action) {
         case "POST_REVIEW":
             return [action.payload, ...prevState]
         case "PATCH_REVIEW":
-            console.log("In patch reducer: ", action.payload)
+            // console.log("In patch reducer: ", action.payload)
             let updatedArray = [...prevState]
             let reviewIndex = updatedArray.findIndex(review => review.id === action.payload.id)
             updatedArray[reviewIndex] = action.payload
-            console.log(updatedArray)
+            // console.log(updatedArray)
             return updatedArray
         default:
             return prevState
@@ -223,7 +223,7 @@ function reviewReducer(prevState = defaultState.review, action) {
 function reviewEditClickedReducer(prevState = defaultState.reviewEditClicked, action){
     switch (action.type) {
         case "REVIEW_EDIT_CLICK":
-            console.log("in edit click reducer: ", prevState)
+            // console.log("in edit click reducer: ", prevState)
             return !prevState
         default:
             return prevState
