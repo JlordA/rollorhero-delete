@@ -1,5 +1,5 @@
 import React from 'react'
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { connect } from "react-redux"
 import { getDelis, renderDeliForm, renderReviewForm } from '../Redux/actions'
 import InfoWindowEx from './InfoWindoEx'
@@ -31,6 +31,7 @@ class MapDisplay extends React.Component {
                 return null
             }
         })
+        const filteredBoroughArray = this.props.currentDelis.filter(deliEl => deliEl.borough === this.props.boroughFilter)
         if (filteredDeliArray.length > 0) {
             return filteredDeliArray.map(deliEl => {
                 const lat = deliEl.lat
@@ -40,6 +41,13 @@ class MapDisplay extends React.Component {
             })
         } else if (filteredSandwichArray.length > 0) {
             return filteredSandwichArray.map(deliEl => {
+                const lat = deliEl.lat
+                const lng = deliEl.lng
+                return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
+                    position={{ lat: lat, lng: lng }} />
+            })
+        } else if (filteredBoroughArray.length > 0) {
+            return filteredBoroughArray.map(deliEl => {
                 const lat = deliEl.lat
                 const lng = deliEl.lng
                 return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
@@ -103,30 +111,16 @@ class MapDisplay extends React.Component {
         })
     }
 
-    // windowHasClosed = () => {
-    //     this.props.fetchForm()
-    // }
-
     renderAddDeliFormHandler = () => {
-        // console.log("working")
         this.props.showDeliForm()
     }
 
-    // addDeliButtonsRender = () => {
-    //     if(this.props.delis.includes(this.state.name)){
-    //         return <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>
-    //     } else {
-    //         return <button type="button" onClick={this.renderReviewFormHandler}>Review Me</button>,
-    //                 <button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</button>
-    //     }
-    // }
-
     render() {
-        // console.log(this.props.deliLocation)
+        console.log(this.props.boroughFilter)
         return (
             <div className="mapSizeDiv" >
                 <Map
-                    style={{ width: '48.8vw', height: '63vh' }}
+                    style={{ width: '48.8vw', height: '80%' }}
                     google={this.props.google}
                     zoom={13}
                     initialCenter={{
@@ -169,6 +163,7 @@ function msp(state) {
         reviewForm: state.reviewFormClicked,
         sandwichFilter: state.sandwichFilter,
         deliFilter: state.deliFilter,
+        boroughFilter: state.boroughFilter,
         deliLocation: state.deliLocation
     }
 }

@@ -1,24 +1,18 @@
 import React from 'react'
-import { Button, Header, Segment } from 'semantic-ui-react'
+import { Header, Segment } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {userLoggedIn, logOutUser} from '../Redux/actions'
+import styled from 'styled-components'
 
 
 
 function Banner(props){
 
-    const clickHandler = () => {
-        props.logOutUser()
-        props.userLoggedIn()
-    }
+    
 
     return(
-        <div>
-            <Segment>
-                <Header as='h1' color='brown' textAlign='center'>ROLL or HERO</Header>
-                <Button onClick={clickHandler}>Log Out</Button>
-            </Segment>
-        </div>
+            <BannerPic src="http://localhost:3001/img/rollorhero.png"/>
+        
     )
 }
 
@@ -31,3 +25,11 @@ function mdp(dispatch){
 
 export default connect(null, mdp)(Banner)
 
+const BannerPic = styled.img`
+    width: 100%;
+    height: 100%;
+`
+
+{/* <Segment>
+                <Header as='h1' color='brown' textAlign='center'>ROLL or HERO</Header>
+            </Segment> */}

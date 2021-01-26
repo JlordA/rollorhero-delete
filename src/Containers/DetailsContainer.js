@@ -88,7 +88,7 @@ class DetailsContainer extends React.Component {
         // console.log(this.state.tab)
         return (
             <>
-                <div  >
+                <div className="tab-parent" >
                     <div id="review" className="child" onClick={this.clickHandler}>
                         <span>REVIEWS</span>
                     </div>

@@ -21,6 +21,7 @@ const defaultState = {
     deliClicked: false,
     sandwichFilter: "",
     deliFilter: "",
+    boroughFilter: "",
     deliLocation: null
 }
 
@@ -75,6 +76,15 @@ function deliReducer(prevState = defaultState.deli, action) {
 function deliStyleReducer(prevState = defaultState.deliFilter, action) {
     switch (action.type) {
         case "DELI_FILTER":
+            return action.payload
+        default:
+            return prevState
+    }
+}
+
+function boroughStyleReducer(prevState = defaultState.boroughFilter, action) {
+    switch (action.type) {
+        case "BOROUGH_FILTER":
             return action.payload
         default:
             return prevState
@@ -251,6 +261,7 @@ const rootReducer = combineReducers({
     deliFilter: deliStyleReducer,
     deliLocation: deliSearchReducer,
     deliFormClicked: deliFormReducer,
+    boroughFilter: boroughStyleReducer,
     sandwichFilter: sandwichStateReducer,
     sandwiches: sandwichesReducer,
     sandwich: sandwichReducer,

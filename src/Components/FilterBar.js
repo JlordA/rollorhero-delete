@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { setSandwichFilter, setSearchLocation, setDeliFilter, renderDelisClick } from '../Redux/actions'
+import { setSandwichFilter, setSearchLocation, setDeliFilter, renderDelisClick, userLoggedIn, logOutUser, setBoroughFilter } from '../Redux/actions'
 import { Button } from 'semantic-ui-react'
 import { GoogleComponent } from 'react-google-location'
 
@@ -12,7 +12,7 @@ class FilterBar extends React.Component {
     state = {
         sandwichStyle: "",
         deliStyle: "",
-        currentDateTime: Date().toLocaleString(),
+        boroughStyle: "",
         place: null
     }
 
@@ -42,6 +42,12 @@ class FilterBar extends React.Component {
         />
     )
 
+    sandwichClickHandler = (e, data) => {
+        // console.log(data.value)
+        this.setState({ sandwichStyle: data.value })
+        this.props.filterSandwiches(data.value)
+    }
+
     deliStyles = [
         { key: '', text: '', value: '' },
         { key: 'Bodega', text: 'Bodega', value: 'Bodega' },
@@ -51,18 +57,6 @@ class FilterBar extends React.Component {
         { key: 'Italian_Deli', text: 'Italian Deli', value: 'Italian Deli' },
         { key: 'Vietnamese_Deli', text: 'Vietnamese Deli', value: 'Vietnamese Deli' }
     ]
-
-    sandwichClickHandler = (e, data) => {
-        // console.log(data.value)
-        this.setState({ sandwichStyle: data.value })
-        this.props.filterSandwiches(data.value)
-    }
-
-    deliClickHandler = (e, data) => {
-        // console.log(data.value)
-        this.setState({ deliStyle: data.value })
-        this.props.filterDelis(data.value)
-    }
 
     deliDropdown = () => (
         <Dropdown
@@ -79,18 +73,57 @@ class FilterBar extends React.Component {
         />
     )
 
+    deliClickHandler = (e, data) => {
+        this.setState({ deliStyle: data.value })
+        this.props.filterDelis(data.value)
+    }
+
+    boroughStyles = [
+        { key: '', text: '', value: '' },
+        { key: 'Manhattan', text: 'Manhattan', value: 'Manhattan' },
+        { key: 'Brooklyn', text: 'Brooklyn', value: 'Brooklyn' },
+        { key: 'Queens', text: 'Queens', value: 'Queens' },
+        { key: 'Bronx', text: 'Bronx', value: 'Bronx' },
+        { key: 'Staten Island', text: 'Staten Island', value: 'Staten Island' }
+    ]
+
+    boroughDropdown = () => (
+        <Dropdown
+            button
+            onChange={this.boroughClickHandler}
+            name="boroughStyle"
+            className='icon'
+            floating
+            labeled
+            icon='search'
+            options={this.boroughStyles}
+            search
+            placeholder='Filter by Borough'
+        />
+    )
+
+    boroughClickHandler = (e, data) => {
+        this.setState({ boroughStyle: data.value })
+        this.props.filterBoroughs(data.value)
+    }
+
     delisClickHandler = () => {
         console.log("testing")
         this.props.renderDelis()
     }
 
     searchHandler = (e) => {
-        this.setState({ place: e }) 
+        this.setState({ place: e })
     }
-    
+
     sendSearch = (e) => {
         e.preventDefault()
         this.props.findDeli(this.state.place)
+    }
+
+    logoutClickHandler = () => {
+        this.props.logOutUser()
+        this.props.userLoggedIn()
     }
 
     render() {
@@ -107,22 +140,26 @@ class FilterBar extends React.Component {
                 {this.deliDropdown()}
                 <br></br>
                 <br></br>
-                <Button onClick={this.delisClickHandler}> Delis </Button>
+                {this.boroughDropdown()}
+                {/* <Button onClick={this.delisClickHandler}> Delis </Button> */}
                 <br></br>
                 <br></br>
                 <h3>Find A Deli</h3>
                 <div>
-                <GoogleComponent
-                    apiKey={API_KEY}
-                    language={'en'}
-                    country={'country:in|country:us'}
-                    coordinates={true}
-                    locationBoxStyle={'custom-style'}
-                    locationListStyle={'custom-style-list'}
-                    onChange={this.searchHandler}
-                     />
+                    <GoogleComponent
+                        apiKey={API_KEY}
+                        language={'en'}
+                        country={'country:in|country:us'}
+                        coordinates={true}
+                        locationBoxStyle={'custom-style'}
+                        locationListStyle={'custom-style-list'}
+                        onChange={this.searchHandler}
+                    />
                     <Button onClick={this.sendSearch}>Search</Button>
                 </div>
+                <br></br>
+                <br></br>
+                <Button onClick={this.logoutClickHandler}>Log Out</Button>
             </div>
 
         )
@@ -139,8 +176,11 @@ function mdp(dispatch) {
     return {
         filterSandwiches: (sandStyle) => dispatch(setSandwichFilter(sandStyle)),
         filterDelis: (deliStyle) => dispatch(setDeliFilter(deliStyle)),
+        filterBoroughs: (boroughStyle) => dispatch(setBoroughFilter(boroughStyle)),
         findDeli: (deliLocation) => dispatch(setSearchLocation(deliLocation)),
-        renderDelis: () => dispatch(renderDelisClick())
+        renderDelis: () => dispatch(renderDelisClick()),
+        userLoggedIn: () => dispatch(userLoggedIn()),
+        logOutUser: () => dispatch(logOutUser())
     }
 }
 export default connect(msp, mdp)(FilterBar)

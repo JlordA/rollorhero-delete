@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getSandwich, likeSandwich, sandwichBeenClicked } from '../Redux/actions'
-import { Button } from  'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 class Sandwich extends React.Component {
 
@@ -31,17 +32,23 @@ class Sandwich extends React.Component {
     }
 
     render() {
+        console.log(this.props.sandwich)
         let sandwich = this.props.sandwich
         return (
-            <div>
-                <h4>Name: {sandwich.name}</h4>
-                <p>Description: {sandwich.description}</p>
-                <p>Price: {sandwich.price}</p>
-                <p>Style: {sandwich.style}</p>
-                <p>Rating: {sandwich.rating}</p>
-                <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></p>
-                <Button onClick={this.allSandwichRender}>All Sandwiches</Button>
-            </div>
+            <SandwichWrapper>
+                <SandwichDetails>
+                    <h4>Name: {sandwich.name}</h4>
+                    <p>Description: {sandwich.description}</p>
+                    <p>Price: {sandwich.price}</p>
+                    <p>Style: {sandwich.style}</p>
+                    <p>Rating: {sandwich.rating}</p>
+                    <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></p>
+                    <Button onClick={this.allSandwichRender}>All Sandwiches</Button>
+                </SandwichDetails>
+                <SandwichPic>
+                    <img src={this.props.sandwich.image} alt={this.props.sandwich.name} width="200" height="300" />
+                </SandwichPic>
+            </SandwichWrapper>
         )
     }
 }
@@ -63,3 +70,21 @@ function msp(state) {
 }
 
 export default connect(msp, mdp)(Sandwich)
+
+const SandwichPic = styled.div`
+    justify-content: right;
+    border: 2px solid black;
+`
+const SandwichDetails = styled.div`
+    justify-content: left;
+    border: 2px solid black;
+`
+
+const SandwichWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+    border: 2px solid black;
+`

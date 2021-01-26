@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { reviewEditClicked, reviewClick, getSandwiches } from '../Redux/actions'
 import SandwichListItem from './SandwichListItem'
 import { Button } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 class Review extends React.Component {
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.allSandwiches()
     }
 
@@ -37,28 +38,32 @@ class Review extends React.Component {
         // console.log(this.props.sandwiches)
         return this.props.deli.sandwiches.map(deliSandwich => {
             return this.props.sandwiches.map(sandwich => {
-                if(deliSandwich.name === sandwich.name){
-                    return <SandwichListItem key={sandwich.id} sandwichObj={sandwich}/>
+                if (deliSandwich.name === sandwich.name) {
+                    return <SandwichListItem key={sandwich.id} sandwichObj={sandwich} />
                 }
             })
         })
     }
-    
+
 
     render() {
         const deli = this.props.deli
         return (
-            <>
-                <h4>{this.props.review.title}</h4>
-                <p>{this.dateHandler(this.props.review.date)}</p>
-                <h4>{this.props.deli.name}</h4>
-                <p>{this.props.review.rating}</p>
-                <p>{this.props.review.body}</p>
-            Sandwiches Reviewed:
-                <h5>{deli.length === 0 ? <p>fetching sandwiches</p> : this.sandwichOfDeliReview()}</h5>
-                <Button onClick={this.reviewsClickHander}>All Reviews</Button>
-                {this.renderButton()}
-            </>
+            <ReviewWrapper>
+                <ReviewDetails>
+                    <h4>{this.props.review.title}</h4>
+                    <p>{this.dateHandler(this.props.review.date)}</p>
+                    <h4>{this.props.deli.name}</h4>
+                    <p>{this.props.review.rating}</p>
+                    <p>{this.props.review.body}</p>
+                    <Button onClick={this.reviewsClickHander}>All Reviews</Button>
+                    {this.renderButton()}
+                </ReviewDetails>
+                <Associated>
+                    Sandwiches Reviewed:
+                    <h5>{deli.length === 0 ? <p>fetching sandwiches</p> : this.sandwichOfDeliReview()}</h5>
+                </Associated>
+            </ReviewWrapper>
         )
     }
 }
@@ -80,3 +85,21 @@ function mdp(dispatch) {
     }
 }
 export default connect(msp, mdp)(Review)
+
+const ReviewWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+    border: 2px solid black;
+`
+const ReviewDetails = styled.div`
+    justify-content: left;
+    border: 2px solid black;
+`
+
+const Associated = styled.div`
+    justify-content: right;
+    border: 2px solid black;
+`
