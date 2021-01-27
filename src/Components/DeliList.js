@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import DeliListItem from './DeliListItem'
+import styled from 'styled-components'
 
 
 class DeliList extends React.Component {
@@ -14,8 +15,10 @@ class DeliList extends React.Component {
     render() {
         return (
             <div className="tab-div">
-                <h3>Delis</h3>
-                {this.renderDelis()}
+                <h2>Delis</h2>
+                <ListWrapper >
+                    {this.renderDelis()}
+                </ListWrapper>
             </div>
         )
     }
@@ -27,3 +30,8 @@ function msp(state) {
     }
 }
 export default connect(msp)(DeliList)
+
+const ListWrapper = styled.div`
+    border: solid;
+    
+`

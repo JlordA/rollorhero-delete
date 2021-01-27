@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { setSandwichFilter, setSearchLocation, setDeliFilter, renderDelisClick, userLoggedIn, logOutUser, setBoroughFilter } from '../Redux/actions'
 import { Button } from 'semantic-ui-react'
 import { GoogleComponent } from 'react-google-location'
+import styled from 'styled-components'
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
@@ -130,22 +131,22 @@ class FilterBar extends React.Component {
         // console.log(this.state.place)
         return (
             <div className="filters">
-                <h2>Search The City</h2>
-                <br></br>
-                <br></br>
-                <h3>Filters</h3>
-                {this.sandwichDropdown()}
-                <br></br>
-                <br></br>
-                {this.deliDropdown()}
-                <br></br>
-                <br></br>
-                {this.boroughDropdown()}
-                {/* <Button onClick={this.delisClickHandler}> Delis </Button> */}
-                <br></br>
-                <br></br>
-                <h3>Find A Deli</h3>
-                <div>
+                <Title>Search The City</Title>
+
+                <Header>Filters</Header>
+                <ButtonDiv>
+                    {this.sandwichDropdown()}
+                    <br></br>
+                    <br></br>
+                    {this.deliDropdown()}
+                    <br></br>
+                    <br></br>
+                    {this.boroughDropdown()}
+                    <br></br>
+                    <br></br>
+                </ButtonDiv>
+                <Header>Find A Deli</Header>
+                <ButtonDiv>
                     <GoogleComponent
                         apiKey={API_KEY}
                         language={'en'}
@@ -154,12 +155,15 @@ class FilterBar extends React.Component {
                         locationBoxStyle={'custom-style'}
                         locationListStyle={'custom-style-list'}
                         onChange={this.searchHandler}
-                    />
-                    <Button onClick={this.sendSearch}>Search</Button>
-                </div>
+                    /><Button width="50" onClick={this.sendSearch}>Search</Button>
+                </ButtonDiv>
                 <br></br>
                 <br></br>
-                <Button onClick={this.logoutClickHandler}>Log Out</Button>
+                <br></br>
+                <br></br>
+                <ButtonDiv>
+                    <Button onClick={this.logoutClickHandler}>Log Out</Button>
+                </ButtonDiv>
             </div>
 
         )
@@ -184,3 +188,18 @@ function mdp(dispatch) {
     }
 }
 export default connect(msp, mdp)(FilterBar)
+
+const Title = styled.h1`
+    border: solid 2px;
+    margin-right: 17px;
+    font-weight: bold;
+`
+
+const Header = styled.h2`
+    border-bottom: solid;
+    margin-right: 17px;
+`
+const ButtonDiv = styled.div`
+    margin-right: 17px;
+    margin-bottom: 20px;
+`

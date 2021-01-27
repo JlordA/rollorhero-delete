@@ -97,6 +97,7 @@ const ReviewWrapper = styled.div`
 const ReviewDetails = styled.div`
     justify-content: left;
     border: 2px solid black;
+    word-wrap: normal;
 `
 
 const Associated = styled.div`

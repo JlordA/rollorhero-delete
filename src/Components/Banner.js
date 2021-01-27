@@ -8,8 +8,6 @@ import styled from 'styled-components'
 
 function Banner(props){
 
-    
-
     return(
             <BannerPic src="http://localhost:3001/img/rollorhero.png"/>
         

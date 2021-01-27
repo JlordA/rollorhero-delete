@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { currentDeli, deliClick } from '../Redux/actions'
+import styled from "styled-components"
  
 class DeliListItem extends React.Component{
     
@@ -12,7 +13,7 @@ class DeliListItem extends React.Component{
     render(){
         return(
             <ul className="ul">
-                <li onClick={this.clickHandler}>{this.props.deliObj.name} - {this.props.deliObj.address}</li>
+                <DeliLine onClick={this.clickHandler}>{this.props.deliObj.name} - {this.props.deliObj.address}</DeliLine>
             </ul>
         )
     }
@@ -25,3 +26,8 @@ function mdp(dispatch){
     }
 }
 export default connect(null, mdp)(DeliListItem)
+
+const DeliLine = styled.li`
+    border: solid;
+    margin-right: 35px;
+`

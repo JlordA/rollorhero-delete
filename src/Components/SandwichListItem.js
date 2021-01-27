@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getSandwich, sandwichBeenClicked } from '../Redux/actions'
+import styled from 'styled-components'
 
 class SandwichListItem extends React.Component {
 
@@ -12,7 +13,7 @@ class SandwichListItem extends React.Component {
     render() {
         return (
             <ul className="ul">
-                <li onClick={this.clickHandler}>{this.props.sandwichObj.name}</li>
+                <SandwichLine onClick={this.clickHandler}>{this.props.sandwichObj.name} / Rating:{this.props.sandwichObj.rating}</SandwichLine>
             </ul>
         )
     }
@@ -26,3 +27,8 @@ function mdp(dispatch) {
 }
 
 export default connect(null, mdp)(SandwichListItem)
+
+const SandwichLine = styled.li`
+    border: solid;
+    margin-right: 35px;
+`

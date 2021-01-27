@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getReviews } from '../Redux/actions'
-// import Review from './Review'
 import ReviewListItem from './ReviewListItem'
+import styled from 'styled-components'
 
 class Reviews extends React.Component {
 
@@ -22,8 +22,10 @@ class Reviews extends React.Component {
     render() {
         return (
             <div className="tab-div" >
-                <h3>Reviews</h3>
-                {this.renderReviewList()}
+                <h2>Reviews</h2>
+                <ListWrapper>
+                    {this.renderReviewList()}
+                </ListWrapper>
             </div>
         )
     }
@@ -42,3 +44,7 @@ function mdp(dispatch) {
 }
 
 export default connect(msp, mdp)(Reviews)
+
+const ListWrapper = styled.div`
+    border: solid;
+`

@@ -9,11 +9,11 @@
         grid-row-gap: 10px; */
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: repeat(7, 1fr);
+        grid-template-rows: repeat(5, 1fr);
         grid-column-gap: 10px;
         grid-row-gap: 10px;
-
-        background-color: #F0A868;    
+        background-color: #F0A868;
+        /* max-height: 1000px; */
     }
     
     .bannerDiv { 
@@ -25,23 +25,23 @@
 
     .buttonbarDiv { 
         /* grid-area: 3 / 2 / 8 / 4;  */
-        grid-area: 2 / 2 / 5 / 3;
+        grid-area: 2 / 2 / 4 / 3;
         border: solid;
         background-color: #FFE8C2;
     }
 
     .mapDiv { 
         /* grid-area: 3 / 4 / 8 / 8;  */
-        grid-area: 2 / 3 / 5 / 6;
+        grid-area: 2 / 3 / 4 / 6;
         border: solid;
     }
 
     .detailsContainerDiv { 
         /* grid-area: 8 / 2 / 12 / 8;  */
-        grid-area: 5 / 2 / 8 / 6;
+        grid-area: 4 / 2 / 6 / 6;
         border: solid;
         background-color: #FFE8C2;
-        max-height: 600px;
+        /* max-height: 600px; */
         font-weight: bold;
     }
     
@@ -55,7 +55,7 @@
         display: inline-block;
         width: 30%;
         margin: 2px;
-        padding:1% 16%;
+        padding:1% 10%;
         background: #44444c;
         color: rgb(248, 245, 245);
         font-family: Arial, Helvetica, sans-serif;
@@ -66,9 +66,10 @@
 
     .tab-div {
         overflow: auto;
-        height: 280px;
+        height: 500px;
         margin: 20px;
         padding: 10px;
+        margin-top: 30px;
     }
     
     .ul{
@@ -87,7 +88,10 @@
         text-align: center;
     }
     
-    .banner-background{
-        background-image: "http://localhost:3001/rollorhero.png";
+    .mapSizeDiv{
+        height: auto;
+        width: auto; 
+        
     }
 
+    

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { reviewClick, renderReview, getDeliOfReview } from '../Redux/actions'
+import styled from 'styled-components'
 
 class ReviewListItem extends React.Component{
 
@@ -14,7 +15,7 @@ class ReviewListItem extends React.Component{
     render(){
         return(
             <ul className="ul">
-                <li onClick={this.clickHandler}>{this.props.reviewObj.title}   -    Deli: {this.props.reviewObj.deli.name}     /     Rating: {this.props.reviewObj.rating} </li>
+                <ReviewLine onClick={this.clickHandler}>{this.props.reviewObj.title}    /     Rating: {this.props.reviewObj.rating} </ReviewLine>
             </ul>
         )
     }
@@ -31,3 +32,8 @@ function mdp(dispatch){
 }
 
 export default connect(null, mdp)(ReviewListItem)
+
+const ReviewLine = styled.li`
+    border: solid;
+    margin-right: 35px;
+`

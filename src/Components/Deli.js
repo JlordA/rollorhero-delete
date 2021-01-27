@@ -26,23 +26,25 @@ class Deli extends React.Component {
         return (
             <DeliWrapper>
                 <DeliDetails>
-                    <h5>{this.props.deli.name}</h5>
-                    Address:
+                    <Header>{this.props.deli.name}</Header>
+                    <DetailTitle>Address:</DetailTitle>
                     <Detail>{this.props.deli.address}</Detail>
-                    Style:
+                    <DetailTitle>Style:</DetailTitle>
                     <Detail>{this.props.deli.style}</Detail>
-                    Hours:
+                    <DetailTitle>Hours:</DetailTitle>
                     <Detail>{this.props.deli.hours_open}</Detail>
-                    Neighborhood:
+                    <DetailTitle>Neighborhood:</DetailTitle>
                     <Detail>{this.props.deli.neighborhood}</Detail>
-                    Borough:
-                    <Detail>{this.props.deli.bourough}</Detail>
-                    <Button onClick={this.delisClickHandler}>All Delis</Button>
-                    <Button onClick={this.clickHandler}>Add Sandwich</Button>
+                    <DetailTitle>Borough:</DetailTitle>
+                    <Detail>{this.props.deli.borough}</Detail>
+                    <ButtonDiv>
+                        <Button onClick={this.delisClickHandler}>All Delis</Button>
+                        <Button onClick={this.clickHandler}>Add Sandwich</Button>
+                    </ButtonDiv>
                 </DeliDetails>
                 <Associated>
-                    <h5>Associated Sandwiches</h5>
-                    <Detail>{this.props.deli.sandwiches.length === 0 ? null : this.sandwichesOfDeli()}</Detail>
+                    <Header>Associated Sandwiches</Header>
+                    <AssociatedDetail>{this.props.deli.sandwiches.length === 0 ? null : this.sandwichesOfDeli()}</AssociatedDetail>
                 </Associated>
             </DeliWrapper>
         )
@@ -64,14 +66,6 @@ function mdp(dispatch) {
 
 export default connect(msp, mdp)(Deli)
 
-const Associated = styled.div`
-    justify-content: right;
-    border: 2px solid black;
-`
-const DeliDetails = styled.div`
-    justify-content: left;
-    border: 2px solid black;
-`
 const DeliWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -79,8 +73,46 @@ const DeliWrapper = styled.div`
     justify-content: space-evenly;
     align-content: space-around;
     border: 2px solid black;
+    height: 500px;
+    margin-top: 20px;
+`
+
+const DeliDetails = styled.div`
+    justify-content: left;
+    border: 2px solid black;
+    width: 40%;
+`
+
+const Associated = styled.div`
+    justify-content: right;
+    border: 2px solid black;
+    width: 40%;
 `
 
 const Detail = styled.p`
     font-weight: bold;
+    margin-right: 50px;
+    margin-left: 50px;
+`
+
+const DetailTitle = styled.p`
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 50px;
+    border: solid black;
+    background: #44444c;
+    color: white;
+`
+const AssociatedDetail = styled.p`
+    font-weight: bold;
+    margin-right: 50px;
+`
+
+const Header = styled.h1`
+    border-bottom: solid;
+`
+
+const ButtonDiv = styled.div`
+    margin-left: 50px;
+    margin-bottom: 20px;
 `

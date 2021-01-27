@@ -37,16 +37,26 @@ class Sandwich extends React.Component {
         return (
             <SandwichWrapper>
                 <SandwichDetails>
-                    <h4>Name: {sandwich.name}</h4>
-                    <p>Description: {sandwich.description}</p>
-                    <p>Price: {sandwich.price}</p>
-                    <p>Style: {sandwich.style}</p>
-                    <p>Rating: {sandwich.rating}</p>
-                    <p>Likes: {this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></p>
-                    <Button onClick={this.allSandwichRender}>All Sandwiches</Button>
+                    <Header>{sandwich.name}</Header>
+                    <DetailTitle>Description:</DetailTitle>
+                    <Detail>{sandwich.description}</Detail>
+                    <DetailTitle>Price:</DetailTitle>
+                    <Detail>{sandwich.price}</Detail>
+                    <DetailTitle>Style:</DetailTitle>
+                    <Detail>{sandwich.style}</Detail>
+                    <DetailTitle>Rating:</DetailTitle> 
+                    <Detail>{sandwich.rating}</Detail>
+                    <DetailTitle>Likes:</DetailTitle>
+                    <Detail>{this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></Detail>
+                    <ButtonDiv>
+                        <Button onClick={this.allSandwichRender}>All Sandwiches</Button>
+                    </ButtonDiv>
                 </SandwichDetails>
                 <SandwichPic>
-                    <img src={this.props.sandwich.image} alt={this.props.sandwich.name} width="200" height="300" />
+                    <Header>Gallery</Header>
+                    
+                        <Image src={this.props.sandwich.image} alt={this.props.sandwich.name} width="200" height="300" />
+                    
                 </SandwichPic>
             </SandwichWrapper>
         )
@@ -71,15 +81,6 @@ function msp(state) {
 
 export default connect(msp, mdp)(Sandwich)
 
-const SandwichPic = styled.div`
-    justify-content: right;
-    border: 2px solid black;
-`
-const SandwichDetails = styled.div`
-    justify-content: left;
-    border: 2px solid black;
-`
-
 const SandwichWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -87,4 +88,49 @@ const SandwichWrapper = styled.div`
     justify-content: space-evenly;
     align-content: space-around;
     border: 2px solid black;
+    height: 500px;
+    margin-top: 20px;
+`
+
+const SandwichDetails = styled.div`
+    justify-content: left;
+    border: 2px solid black;
+    width: 40%;
+`
+
+const SandwichPic = styled.div`
+    justify-content: right;
+    border: 2px solid black;
+    width: 40%
+`
+const Header = styled.h1`
+    border-bottom: solid;
+`
+
+const DetailTitle = styled.p`
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 50px;
+    border: solid black;
+    background: #44444c;
+    color: white;
+`
+
+const Detail = styled.p`
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 50px;
+`
+
+const ButtonDiv = styled.div`
+    margin-left: 50px;
+    margin-bottom: 20px;
+`
+
+const Image = styled.img`
+display: block;
+margin-left: auto;
+margin-right: auto;
+margin-top: 50px;
+width: 50%;
 `

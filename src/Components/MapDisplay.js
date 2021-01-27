@@ -120,7 +120,8 @@ class MapDisplay extends React.Component {
         return (
             <div className="mapSizeDiv" >
                 <Map
-                    style={{ width: '48.8vw', height: '80%' }}
+                    style={{ width: '48.8vw', height: '58vh' }}
+                    containerStyle={{height: '58vh', width: '48.8vw'}}
                     google={this.props.google}
                     zoom={13}
                     initialCenter={{

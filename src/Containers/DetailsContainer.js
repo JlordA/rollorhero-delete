@@ -10,34 +10,13 @@ import DeliList from '../Components/DeliList'
 import Deli from '../Components/Deli'
 import CreateSandwichForm from '../Components/CreateSandwichForm'
 import SandwichList from '../Components/SandwichList'
+import styled from 'styled-components'
 
 class DetailsContainer extends React.Component {
 
     state = {
         tab: "review"
     }
-
-    // detailsRender = () => {
-    //     if (this.props.reviewFormClicked === true) {
-    //         return <ReviewCreateForm />
-    //     } else if (this.props.deliFormClicked === true) {
-    //         return <AddDeliForm />
-    //     } else if (this.props.sandwichBeenClicked === true) {
-    //         return <Sandwich />
-    //     } else if (this.props.reviewEditClicked === true) {
-    //         return <EditReviewForm />
-    //     } else if (this.props.reviewBeenClicked === true) {
-    //         return <Review />
-    //     } else if (this.props.sandwichFormClicked === true) {
-    //         return <CreateSandwichForm />
-    //     } else if (this.props.deliClicked === true) {
-    //         return <Deli />
-    //     } else if (this.props.deliList === true) {
-    //         return <DeliList />
-    //     } else {
-    //         return <Reviews />
-    //     }
-    // }
 
     reviewTabRender = () => {
         if (this.props.reviewFormClicked === true) {
@@ -72,6 +51,7 @@ class DetailsContainer extends React.Component {
     }
 
     clickHandler = (e) => {
+        console.log("working", e.target.id)
         this.setState({ tab: e.target.id })
     }
 
@@ -87,7 +67,7 @@ class DetailsContainer extends React.Component {
     render() {
         // console.log(this.state.tab)
         return (
-            <>
+            <div>
                 <div className="tab-parent" >
                     <div id="review" className="child" onClick={this.clickHandler}>
                         <span>REVIEWS</span>
@@ -103,7 +83,7 @@ class DetailsContainer extends React.Component {
                     {this.tabRender()}
                     {/* {this.detailsRender()} */}
                 </div>
-            </>
+            </div>
         )
     }
 }
@@ -122,3 +102,4 @@ function msp(state) {
 }
 
 export default connect(msp)(DetailsContainer)
+

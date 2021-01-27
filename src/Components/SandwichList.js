@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getSandwiches } from '../Redux/actions'
 import SandwichListItem from './SandwichListItem'
+import styled from 'styled-components'
 
 class SandwichList extends React.Component {
 
@@ -18,8 +19,10 @@ class SandwichList extends React.Component {
     render() {
         return (
             <div className="tab-div">
-                <h3>Sandwiches</h3>
-                {this.renderSandwichList()}
+                <h2>Sandwiches</h2>
+                <ListWrapper>
+                    {this.renderSandwichList()}
+                </ListWrapper>
             </div>
         )
     }
@@ -37,3 +40,7 @@ function mdp(dispatch) {
     }
 }
 export default connect(msp, mdp)(SandwichList)
+
+const ListWrapper = styled.div`
+    border: solid;
+`
