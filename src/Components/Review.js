@@ -21,7 +21,7 @@ class Review extends React.Component {
 
     renderButton = () => {
         if (this.props.user.id === this.props.review.user_id) {
-            return <Button onClick={this.editClickHandler}>Edit</Button>
+            return <Button color='grey' onClick={this.editClickHandler}>Edit</Button>
         }
     }
 
@@ -51,16 +51,22 @@ class Review extends React.Component {
         return (
             <ReviewWrapper>
                 <ReviewDetails>
-                    <h4>{this.props.review.title}</h4>
-                    <p>{this.dateHandler(this.props.review.date)}</p>
-                    <h4>{this.props.deli.name}</h4>
-                    <p>{this.props.review.rating}</p>
-                    <p>{this.props.review.body}</p>
-                    <Button onClick={this.reviewsClickHander}>All Reviews</Button>
-                    {this.renderButton()}
+                    <Header>{this.props.review.title}</Header>
+                    <DetailTitle>Date</DetailTitle>
+                    <Detail>{this.dateHandler(this.props.review.date)}</Detail>
+                    <DetailTitle>Deli Name</DetailTitle>
+                    <Detail>{this.props.deli.name}</Detail>
+                    <DetailTitle>Rating</DetailTitle>
+                    <Detail>{this.props.review.rating}⭐️</Detail>
+                    <DetailTitle>Review</DetailTitle>
+                    <Detail>{this.props.review.body}</Detail>
+                    <ButtonDiv>
+                        <Button color='grey' onClick={this.reviewsClickHander}>All Reviews</Button>
+                        {this.renderButton()}
+                    </ButtonDiv>
                 </ReviewDetails>
                 <Associated>
-                    Sandwiches Reviewed:
+                    <Header>Sandwiches Reviewed:</Header>
                     <h5>{deli.length === 0 ? <p>fetching sandwiches</p> : this.sandwichOfDeliReview()}</h5>
                 </Associated>
             </ReviewWrapper>
@@ -93,14 +99,52 @@ const ReviewWrapper = styled.div`
     justify-content: space-evenly;
     align-content: space-around;
     border: 2px solid black;
+    height: 500px;
+    margin-top: 20px;
+    background-color: #94BFA7;
+    margin-left: 30px;
+    margin-right: 30px;
 `
 const ReviewDetails = styled.div`
     justify-content: left;
     border: 2px solid black;
-    word-wrap: normal;
+    width: 40%;
+    background-color: #FFE8C2;
+    overflow: scroll;
+    max-height: 450px;
 `
 
 const Associated = styled.div`
     justify-content: right;
     border: 2px solid black;
+    width: 40%;
+    background-color: #FFE8C2;
+    overflow: scroll;
+    max-height: 450px;
+`
+
+const Header = styled.h1`
+    text-decoration: underline;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 20px
+`
+
+const DetailTitle = styled.p`
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 50px;
+    border: solid black;
+    background: #44444c;
+    color: white;
+`
+
+const Detail = styled.p`
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 60px;
+`
+
+const ButtonDiv = styled.div`
+    margin-left: 50px;
+    margin-bottom: 20px;
 `

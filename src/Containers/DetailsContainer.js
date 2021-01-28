@@ -10,7 +10,6 @@ import DeliList from '../Components/DeliList'
 import Deli from '../Components/Deli'
 import CreateSandwichForm from '../Components/CreateSandwichForm'
 import SandwichList from '../Components/SandwichList'
-import styled from 'styled-components'
 
 class DetailsContainer extends React.Component {
 
@@ -51,7 +50,7 @@ class DetailsContainer extends React.Component {
     }
 
     clickHandler = (e) => {
-        console.log("working", e.target.id)
+        // console.log("working", e.target.id)
         this.setState({ tab: e.target.id })
     }
 

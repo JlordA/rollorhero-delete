@@ -47,4 +47,5 @@ export default connect(msp, mdp)(Reviews)
 
 const ListWrapper = styled.div`
     border: solid;
+    background-color: #94BFA7; 
 `

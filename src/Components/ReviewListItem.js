@@ -15,7 +15,7 @@ class ReviewListItem extends React.Component{
     render(){
         return(
             <ul className="ul">
-                <ReviewLine onClick={this.clickHandler}>{this.props.reviewObj.title}    /     Rating: {this.props.reviewObj.rating} </ReviewLine>
+                <ReviewLine onClick={this.clickHandler}>  -  {this.props.reviewObj.title}    /     Rating: {this.props.reviewObj.rating} </ReviewLine>
             </ul>
         )
     }
@@ -34,6 +34,7 @@ function mdp(dispatch){
 export default connect(null, mdp)(ReviewListItem)
 
 const ReviewLine = styled.li`
-    border: solid;
+    border-bottom: thick;
     margin-right: 35px;
+    background-color: #F0EFE8;
 `

@@ -13,7 +13,7 @@ class DeliListItem extends React.Component{
     render(){
         return(
             <ul className="ul">
-                <DeliLine onClick={this.clickHandler}>{this.props.deliObj.name} - {this.props.deliObj.address}</DeliLine>
+                <DeliLine onClick={this.clickHandler}>  - {this.props.deliObj.name} - {this.props.deliObj.address}</DeliLine>
             </ul>
         )
     }
@@ -28,6 +28,7 @@ function mdp(dispatch){
 export default connect(null, mdp)(DeliListItem)
 
 const DeliLine = styled.li`
-    border: solid;
+    border-bottom: thick;
     margin-right: 35px;
+    background-color: #F0EFE8;
 `

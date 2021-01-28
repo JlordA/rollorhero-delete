@@ -46,7 +46,8 @@ class ReviewForm extends React.Component {
         // console.log(this.state)
         return (
             <FormWrapper>
-                <Form onSubmit={this.submitHandler}>
+                <Form widths='equal' onSubmit={this.submitHandler}>
+                <Header>Add A Review</Header>
                     <FormFields>
                         <Form.Group >
                             <Form.Field
@@ -124,24 +125,10 @@ class ReviewForm extends React.Component {
                         onChange={this.handleChange}
                     />
                     <Form.Field control={Button}>Submit</Form.Field>
-
                     </FormFields>
                 </Form>
             </FormWrapper>
         )
-
-        {/* <h3>Write A Review</h3>
-            <form onSubmit={this.submitHandler}>
-                <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.handleChange}/>
-                <br></br>
-                <input type="date" name="date" value={this.state.date} onChange={this.handleChange}/>
-                <br></br>
-                <textarea name="body" placeholder="tell us about your experience" value={this.state.body} onChange={this.handleChange}></textarea><br></br>
-                <input type="number" name="rating" value={this.state.rating} onChange={this.handleChange}/><br></br>
-                <Button>Submit</Button>
-            </form> */}
-
-
     }
 }
 
@@ -171,7 +158,13 @@ const FormWrapper = styled.div`
 `
 
 const FormFields = styled.div`
-    margin-left: 30px;  
-    margin-right: 30px;
+    margin-left: 200px;  
+    margin-right: 200px;
     margin-top: 20px
+`
+
+const Header = styled.h1`
+    text-decoration: underline;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 200px
 `

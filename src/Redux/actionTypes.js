@@ -24,6 +24,7 @@ export const GET_DELI = "GET_DELI"
 export const DELI_FORM = "DELI_FORM"
 export const POST_DELI = "POST_DELI"
 export const DELI_CLICK = "DELI_CLICK"
+export const RESET_DELI = "RESET_DELI"
 
 //FILTERS//
 export const DELI_FILTER = "DELI_FILTER"

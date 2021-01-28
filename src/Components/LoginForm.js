@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { loginUser, userLoggedIn } from '../Redux/actions'
 import { Button } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 class LoginForm extends React.Component {
 
@@ -24,13 +25,13 @@ class LoginForm extends React.Component {
 
         return (
             <div className="login-form">
-                <form onSubmit={this.submitHandler}>
-                    <h1>ROLL OR HERO</h1>
-                    <h3>Login Form</h3>
-                    <p><input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.changeHandler} /></p>
-                    <p><input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.changeHandler} /></p>
-                    <Button>Login</Button>
-                </form>
+                    <form onSubmit={this.submitHandler}>
+                        <Logo>ROLL OR HERO</Logo>
+                        <Header>Login Form</Header>
+                        <p><input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.changeHandler} /></p>
+                        <p><input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.changeHandler} /></p>
+                        <Button color='grey'>Login</Button>
+                    </form>
             </div>
         )
     }
@@ -44,3 +45,12 @@ function mdp(dispatch) {
 }
 
 export default connect(null, mdp)(LoginForm)
+
+
+const Logo = styled.h1`
+    font-family: 'Roboto Condensed', sans-serif;
+`
+
+const Header = styled.h3`
+    font-family: 'Roboto Condensed', sans-serif;
+`

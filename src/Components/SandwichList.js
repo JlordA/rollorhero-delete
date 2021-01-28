@@ -43,4 +43,5 @@ export default connect(msp, mdp)(SandwichList)
 
 const ListWrapper = styled.div`
     border: solid;
+    background-color: #94BFA7;
 `

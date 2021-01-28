@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { postDeli, renderDeliForm, resetDeliLocation } from '../Redux/actions'
+import { postDeli, renderDeliForm, resetDeli, resetDeliLocation } from '../Redux/actions'
 import { Form, Input, Button, Select } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -26,12 +26,10 @@ class AddDeliForm extends React.Component {
     ]
 
     changeHandler = (e) => {
-        console.log(e.target.value)
         this.setState({ [e.target.name]: e.target.value })
     }
 
     styleHandler = (e, data) => {
-        console.log(data.value)
         this.setState({ style: data.value})
     }
 
@@ -47,10 +45,10 @@ class AddDeliForm extends React.Component {
             lat: this.props.deliLocation.coordinates["lat"],
             lng: this.props.deliLocation.coordinates["lng"]
         }
-        console.log(deliObj)
         this.props.createDeli(deliObj)
         this.props.showDeliForm()
         this.props.clearDeliCache()
+        this.props.clearDeli()
     }
 
     render() {
@@ -66,8 +64,9 @@ class AddDeliForm extends React.Component {
             //     <Button>Add Deli</Button>
             // </form>
             <FormWrapper>
-                <h1>Add A Deli</h1>
-                <Form onSubmit={this.submitHandler}>
+                <Form widths='equal' onSubmit={this.submitHandler}>
+                <Header>Add A Deli</Header>
+                <FormFields>
                     <Form.Group >
                         <Form.Field
                         // id='form-input-control-first-name'
@@ -79,6 +78,8 @@ class AddDeliForm extends React.Component {
                         onChange={this.changeHandler}
                         />
                     </Form.Group>
+                    </FormFields>
+                    <FormFields>
                     <Form.Group >
                         <Form.Field
                         // id='form-input-control-last-name'
@@ -90,6 +91,8 @@ class AddDeliForm extends React.Component {
                         onChange={this.changeHandler}
                         />
                     </Form.Group>
+                    </FormFields>
+                    <FormFields>
                     <Form.Group >
                         <Form.Field
                         control={Select}
@@ -102,6 +105,8 @@ class AddDeliForm extends React.Component {
                         onChange={this.styleHandler}
                         />
                     </Form.Group>
+                    </FormFields>
+                    <FormFields>
                     <Form.Group >
                         <Form.Field
                             // id='form-input-control-first-name'
@@ -113,6 +118,8 @@ class AddDeliForm extends React.Component {
                             onChange={this.changeHandler}
                         />
                     </Form.Group>
+                    </FormFields>
+                    <FormFields>
                     <Form.Group >
                         <Form.Field
                             // id='form-input-control-last-name'
@@ -124,6 +131,8 @@ class AddDeliForm extends React.Component {
                             onChange={this.changeHandler}
                         />
                     </Form.Group>
+                    </FormFields>
+                    <FormFields>
                     <Form.Group >
                         <Form.Field
                             // id='form-input-control-last-name'
@@ -133,13 +142,14 @@ class AddDeliForm extends React.Component {
                             value={this.state.borough}
                             placeholder='Borough'
                             onChange={this.changeHandler}
+                            style={{width: "450px"}}
                         />
                     </Form.Group>
-                    {/* <Form.Field
-                        content='Confirm'
-                        label='Add Deli'
-                    /> */}
+                    </FormFields>
+                    <FormFields>
+
                     <Form.Field control={Button}>Add Deli</Form.Field>
+                    </FormFields>
                 </Form>
             </FormWrapper>
         )
@@ -155,7 +165,8 @@ function mdp(dispatch) {
     return {
         createDeli: (newDeli) => dispatch(postDeli(newDeli)),
         showDeliForm: () => dispatch(renderDeliForm()),
-        clearDeliCache: () => dispatch(resetDeliLocation())
+        clearDeliCache: () => dispatch(resetDeliLocation()),
+        clearDeli: () => dispatch(resetDeli())
     }
 }
 
@@ -169,3 +180,16 @@ const FormWrapper = styled.div`
     align-content: space-around;
     margin-top: 40px;
 `
+
+const Header = styled.h1`
+    text-decoration: underline;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 200px
+`
+
+const FormFields = styled.div`
+    margin-left: 200px;  
+    margin-right: 200px;
+    margin-top: 20px
+`
+

@@ -13,7 +13,7 @@ class SandwichListItem extends React.Component {
     render() {
         return (
             <ul className="ul">
-                <SandwichLine onClick={this.clickHandler}>{this.props.sandwichObj.name} / Rating:{this.props.sandwichObj.rating}</SandwichLine>
+                <SandwichLine onClick={this.clickHandler}>  -     {this.props.sandwichObj.name} / Rating:{this.props.sandwichObj.rating}</SandwichLine>
             </ul>
         )
     }
@@ -29,6 +29,7 @@ function mdp(dispatch) {
 export default connect(null, mdp)(SandwichListItem)
 
 const SandwichLine = styled.li`
-    border: solid;
+    border-bottom: thick;
     margin-right: 35px;
+    background-color: #F0EFE8;
 `

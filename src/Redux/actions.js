@@ -1,5 +1,5 @@
 // import { bindActionCreators } from 'redux'
-import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI, DELI_FORM, POST_DELI, RESET_DELI_LOCATION, RENDER_DELI_LIST, USER_LOGGED_IN, DELI_CLICK, SANDWICH_FORM, POST_SANDWICH, LOGOUT_USER, BOROUGH_FILTER } from './actionTypes'
+import { GET_DELIS, LOGIN_USER, REVIEW_FORM, SANDWICH_FILTER, DELI_FILTER, GET_REVIEWS, REVIEW_CLICK, RENDER_REVIEW, CURRENT_DELI, POST_REVIEW, REVIEW_EDIT_CLICK, PATCH_REVIEW, GET_DELI, GET_SANDWICHES, GET_SANDWICH, SANDWICH_CLICK, POST_LIKE, FIND_DELI, DELI_FORM, POST_DELI, RESET_DELI_LOCATION, RENDER_DELI_LIST, USER_LOGGED_IN, DELI_CLICK, SANDWICH_FORM, POST_SANDWICH, LOGOUT_USER, BOROUGH_FILTER, RESET_DELI } from './actionTypes'
 
 /// USER ACTIONS ///
 
@@ -80,6 +80,16 @@ export function getDelis() {
     }
 }
 
+// export function getDeli(deliObj){
+//     return function (dispatch){
+//         fetch(`http://localhost:3000/api/delis/${deliObj.id}`)
+//             .then(r => r.json())
+//             .then(updatedDeli => {
+//                 dispatch({ type: GET_DELI_UPDATE, payload: updatedDeli })
+//             })
+//     }
+// }
+
 export function getDeliOfReview(deli_id) {
     // console.log(deli_id)
     return function (dispatch) {
@@ -94,6 +104,11 @@ export function getDeliOfReview(deli_id) {
 export function currentDeli(deliObj) {
     return { type: CURRENT_DELI, payload: deliObj }
 }
+
+export function resetDeli(){
+    return { type: RESET_DELI }
+}
+
 
 export function renderDeliForm() {
     // console.log("working")

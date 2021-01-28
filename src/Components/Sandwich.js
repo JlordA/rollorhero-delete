@@ -32,12 +32,14 @@ class Sandwich extends React.Component {
     }
 
     render() {
-        console.log(this.props.sandwich)
+        console.log()
         let sandwich = this.props.sandwich
         return (
             <SandwichWrapper>
                 <SandwichDetails>
                     <Header>{sandwich.name}</Header>
+                    <DetailTitle>Associated Deli:</DetailTitle>
+                    <Detail>{this.props.sandwich.delis === undefined ? <p>Loading</p> : this.props.sandwich.delis[0].name}</Detail>
                     <DetailTitle>Description:</DetailTitle>
                     <Detail>{sandwich.description}</Detail>
                     <DetailTitle>Price:</DetailTitle>
@@ -47,9 +49,9 @@ class Sandwich extends React.Component {
                     <DetailTitle>Rating:</DetailTitle> 
                     <Detail>{sandwich.rating}</Detail>
                     <DetailTitle>Likes:</DetailTitle>
-                    <Detail>{this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button onClick={this.likeHandler}>Like</Button></Detail>
+                    <Detail>{this.props.sandwich.likes === undefined ? 0 : this.props.sandwich.likes.length}  <Button color='grey' size='tiny' onClick={this.likeHandler}>Like</Button></Detail>
                     <ButtonDiv>
-                        <Button onClick={this.allSandwichRender}>All Sandwiches</Button>
+                        <Button color='grey' onClick={this.allSandwichRender}>All Sandwiches</Button>
                     </ButtonDiv>
                 </SandwichDetails>
                 <SandwichPic>
@@ -90,21 +92,33 @@ const SandwichWrapper = styled.div`
     border: 2px solid black;
     height: 500px;
     margin-top: 20px;
+    background-color: #94BFA7;
+    margin-left: 30px;
+    margin-right: 30px;
 `
 
 const SandwichDetails = styled.div`
     justify-content: left;
     border: 2px solid black;
     width: 40%;
+    background-color: #FFE8C2;
+    overflow: scroll;
+    max-height: 450px;
 `
 
 const SandwichPic = styled.div`
     justify-content: right;
     border: 2px solid black;
-    width: 40%
+    width: 40%;
+    background-color: #FFE8C2;
+    overflow: scroll;
+    max-height: 450px;
 `
+
 const Header = styled.h1`
-    border-bottom: solid;
+    text-decoration: underline;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 20px
 `
 
 const DetailTitle = styled.p`
@@ -119,7 +133,7 @@ const DetailTitle = styled.p`
 const Detail = styled.p`
     font-weight: bold;
     margin-right: 50px;
-    margin-left: 50px;
+    margin-left: 60px;
 `
 
 const ButtonDiv = styled.div`
@@ -128,9 +142,9 @@ const ButtonDiv = styled.div`
 `
 
 const Image = styled.img`
-display: block;
-margin-left: auto;
-margin-right: auto;
-margin-top: 50px;
-width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 50%;
 `

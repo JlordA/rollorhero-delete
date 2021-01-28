@@ -21,13 +21,12 @@ class CreateSandwichForm extends React.Component{
         { key: 'Cheese Steak', text: 'Cheese Steak', value: 'Cheese Steak' },
         { key: 'Melt', text: 'Melt', value: 'Melt' },
         { key: 'Breakfast', text: 'Breakfast', value: 'Breakfast' },
-        { key: 'SUB', text: 'SUB', value: 'SUB' },
+        { key: 'Sub', text: 'Sub', value: 'Sub' },
         { key: 'Club', text: 'Club', value: 'Club' },
         { key: 'Cutlet', text: 'Cutlet', value: 'Cutlet' },
     ]
 
     styleHandler = (e, data) => {
-        console.log(data.value)
         this.setState({ style: data.value})
     }
 
@@ -83,11 +82,10 @@ class CreateSandwichForm extends React.Component{
             //     <Button>Submit</Button>
             // </form>
             <FormWrapper>
-                <h1>Add A Sandwich</h1>
-                <Form onSubmit={this.submitHandler}>
+                <Form widths='equal' onSubmit={this.submitHandler}>
+                <Header>Add A Sandwich</Header>
                     <Form.Group >
                         <Form.Field
-                        // id='form-input-control-first-name'
                         control={Input}
                         label='Name'
                         name='name'
@@ -103,7 +101,7 @@ class CreateSandwichForm extends React.Component{
                         placeholder='How was it...'
                         value={this.state.description}
                         name='description'
-                        onChange={this.handleChange}
+                        onChange={this.changeHandler}
                     />
                     </Form.Group>
                     <Form.Group >
@@ -120,7 +118,6 @@ class CreateSandwichForm extends React.Component{
                     </Form.Group>
                     <Form.Group >
                         <Form.Field
-                            // id='form-input-control-first-name'
                             control={Input}
                             label='Price'
                             name='price'
@@ -169,7 +166,6 @@ class CreateSandwichForm extends React.Component{
                     </Form.Group>
                     <Form.Group >
                         <Form.Field
-                            // id='form-input-control-last-name'
                             control={Input}
                             label='Image'
                             name='image'
@@ -178,7 +174,7 @@ class CreateSandwichForm extends React.Component{
                             onChange={this.changeHandler}
                         />
                     </Form.Group>
-                    <Form.Field control={Button}>Add Deli</Form.Field>
+                    <Form.Field color='grey' control={Button}>Add Sandwich</Form.Field>
                 </Form>
             </FormWrapper>
         )
@@ -207,4 +203,10 @@ const FormWrapper = styled.div`
     justify-content: space-evenly;
     align-content: space-around;
     margin-top: 40px;
+`
+
+const Header = styled.h1`
+    text-decoration: underline;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 20px
 `

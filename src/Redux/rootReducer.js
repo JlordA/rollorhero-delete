@@ -68,6 +68,8 @@ function deliReducer(prevState = defaultState.deli, action) {
             return action.payload
         case "GET_DELI":
             return action.payload
+        case "RESET_DELI":
+            return []
         default:
             return prevState
     }

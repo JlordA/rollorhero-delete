@@ -23,7 +23,7 @@ class FilterBar extends React.Component {
         { key: 'Cheese_Steak', text: 'Cheese Steak', value: 'Cheese Steak' },
         { key: 'Melt', text: 'Melt', value: 'Melt' },
         { key: 'Breakfast', text: 'Breakfast', value: 'Breakfast' },
-        { key: 'Sub', text: 'SUB', value: 'Sub' },
+        { key: 'Sub', text: 'Sub', value: 'Sub' },
         { key: 'Club', text: 'Club', value: 'Club' },
         { key: 'Cutlet', text: 'Cutlet', value: 'Cutlet' }
     ]
@@ -153,16 +153,19 @@ class FilterBar extends React.Component {
                         country={'country:in|country:us'}
                         coordinates={true}
                         locationBoxStyle={'custom-style'}
-                        locationListStyle={'custom-style-list'}
+                        locationListStyle={'list-style-type: none'}
                         onChange={this.searchHandler}
-                    /><Button width="50" onClick={this.sendSearch}>Search</Button>
+                        />
                 </ButtonDiv>
+                <SearchDiv>
+                    <Button color='grey' width="50" onClick={this.sendSearch}>Search</Button>
+                </SearchDiv>
                 <br></br>
                 <br></br>
                 <br></br>
                 <br></br>
                 <ButtonDiv>
-                    <Button onClick={this.logoutClickHandler}>Log Out</Button>
+                    <Button color='grey' onClick={this.logoutClickHandler}>Log Out</Button>
                 </ButtonDiv>
             </div>
 
@@ -193,13 +196,22 @@ const Title = styled.h1`
     border: solid 2px;
     margin-right: 17px;
     font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #F0A868;
 `
 
 const Header = styled.h2`
     border-bottom: solid;
     margin-right: 17px;
-`
+    font-family: 'Roboto Condensed', sans-serif;
+    `
 const ButtonDiv = styled.div`
     margin-right: 17px;
     margin-bottom: 20px;
+`
+
+const SearchDiv = styled.div`
+    margin-right: 17px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 `

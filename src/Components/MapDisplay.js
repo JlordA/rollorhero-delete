@@ -25,12 +25,22 @@ class MapDisplay extends React.Component {
     allMarkers = () => {
         const filteredDeliArray = this.props.currentDelis.filter(deliEl => deliEl.style === this.props.deliFilter)
         const filteredSandwichArray = this.props.currentDelis.filter(deliEl => {
+            // console.log(deliEl.sandwiches.length)
             if(deliEl.sandwiches.length){
+                // deliEl.sandwiches.map(sandwichEl =>{
+                //     if(sandwichEl.style === this.props.sandwichFilter){
+                //         return deliEl
+                //     }
+                // })
+                console.log(deliEl.sandwiches[0].style)
                 return deliEl.sandwiches[0].style === this.props.sandwichFilter
-            } else {
+            } 
+            else {
                 return null
             }
         })
+        // console.log(this.props.sandwichFilter)
+        // console.log(filteredSandwichArray)
         const filteredBoroughArray = this.props.currentDelis.filter(deliEl => deliEl.borough === this.props.boroughFilter)
         if (filteredDeliArray.length > 0) {
             return filteredDeliArray.map(deliEl => {
@@ -39,21 +49,24 @@ class MapDisplay extends React.Component {
                 return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
                     position={{ lat: lat, lng: lng }} />
             })
-        } else if (filteredSandwichArray.length > 0) {
+        } 
+        else if (filteredSandwichArray.length > 0) {
             return filteredSandwichArray.map(deliEl => {
                 const lat = deliEl.lat
                 const lng = deliEl.lng
                 return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
                     position={{ lat: lat, lng: lng }} />
             })
-        } else if (filteredBoroughArray.length > 0) {
+        } 
+        else if (filteredBoroughArray.length > 0) {
             return filteredBoroughArray.map(deliEl => {
                 const lat = deliEl.lat
                 const lng = deliEl.lng
                 return <Marker key={deliEl.id} onClick={this.onMarkerClick} name={deliEl.name} address={deliEl.address} hours={deliEl.hours_open}
                     position={{ lat: lat, lng: lng }} />
             })
-        } else {
+        } 
+        else {
             return this.props.currentDelis.map(deliEl => {
                 const lat = deliEl.lat
                 const lng = deliEl.lng
@@ -66,6 +79,7 @@ class MapDisplay extends React.Component {
     searchMarker = () => {
         const titleArray = this.props.deliLocation.place.split( "," )
         const name = titleArray[0]
+        // console.log(name)
         if(this.state.name === ""){
             this.setState({ name: name })
         }
@@ -74,9 +88,9 @@ class MapDisplay extends React.Component {
         fetch(proxyurl + url + process.env.REACT_APP_API_KEY)
         .then(r => r.json())
         .then(data => {
-                if(this.state.address === ""){
-
+            if(this.state.address === ""){
                     this.setState({ address: data.candidates[0]["formatted_address"], hours: data.candidates[0]["hours_open"] })
+                
                 }
             })
             const lat = this.props.deliLocation.coordinates["lat"]
@@ -94,19 +108,11 @@ class MapDisplay extends React.Component {
         })
     }
 
-    // centerMoved(mapProps, map) {
-    //     // console.log(mapProps, map)
-    // }
-
-    // mapClicked(mapProps, map, clickEvent) {
-    //     // console.log("Map props: ", mapProps, "map", map, "clickevent:", clickEvent)
-    // }
-
     renderReviewFormHandler = () => {
         this.props.fetchForm()
         this.props.currentDelis.map(deliEl => {
             if(deliEl.name === this.state.selectedPlace.name) {
-                this.props.setDeli(deliEl)
+                return this.props.setDeli(deliEl)
             }
         })
     }
@@ -115,12 +121,20 @@ class MapDisplay extends React.Component {
         this.props.showDeliForm()
     }
 
+    // renderAddMeButton = () => {
+    //     return this.props.currentDelis.map(deliEl => {
+    //         if(deliEl.name === this.state.name){
+    //             return <Button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</Button>
+    //         }
+    //     })
+    // }
+
     render() {
-        console.log(this.props.boroughFilter)
+        console.log(this.state.name)
         return (
             <div className="mapSizeDiv" >
                 <Map
-                    style={{ width: '48.8vw', height: '58vh' }}
+                    style={{ width: '58.3vw', height: '76.7vh' }}
                     containerStyle={{height: '58vh', width: '48.8vw'}}
                     google={this.props.google}
                     zoom={13}
@@ -147,8 +161,10 @@ class MapDisplay extends React.Component {
                         <div >
                             <h3>{this.state.selectedPlace.name}</h3>
                             <p>Address: {this.state.selectedPlace.address}</p>
-                            <p>Hours: {this.state.selectedPlace.hours}</p>
-                            {this.props.currentDelis.includes(this.state.name) ? null : <Button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</Button>}
+                            {/* <p>Hours: {this.state.selectedPlace.hours}</p> */}
+                            {/* {this.renderAddMeButton()} */}
+                            {this.state.selectedPlace.name === this.state.name ? <Button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</Button> : null}
+                            {/* {this.props.currentDelis.includes(this.state.name) ? null : <Button type="button" onClick={this.renderAddDeliFormHandler}>Add Me</Button>} */}
                             <Button type="button" onClick={this.renderReviewFormHandler}>Review Me</Button>
                         </div>
                     </InfoWindowEx>
