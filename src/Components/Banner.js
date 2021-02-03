@@ -9,7 +9,7 @@ function Banner(props){
 
     return(
         
-            <BannerPic src="http://localhost:3001/img/rollbanner.png"/>
+            <BannerPic src="http://localhost:3000/img/rollbanner.png"/>
         
     )
 }
