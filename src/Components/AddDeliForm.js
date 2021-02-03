@@ -53,23 +53,12 @@ class AddDeliForm extends React.Component {
 
     render() {
         return (
-            // <form onSubmit={this.submitHandler}>
-            //     <p><input type="text" name="name" placeholder="name" value={this.state.name} onChange={this.changeHanler}/></p>
-            //     <p><input type="text" name="address" placeholder="address" value={this.state.address} onChange={this.changeHanler}/></p>
-            //     NEEDS TO BE DROPDOWN FOR STYLE
-            //     <p><input type="dropdown" name="style" placeholder="style" value={this.state.style} onChange={this.changeHanler}/></p>
-            //     <p><input type="text" name="hours_open" placeholder="hours" value={this.state.hours_open} onChange={this.changeHanler}/></p>
-            //     <p><input type="text" name="neighborhood" placeholder="neighborhood" value={this.state.neighborhood} onChange={this.changeHanler}/></p>
-            //     <p><input type="text" name="borough" placeholder="borough"value={this.state.borough} onChange={this.changeHanler}/></p>
-            //     <Button>Add Deli</Button>
-            // </form>
             <FormWrapper>
                 <Form widths='equal' onSubmit={this.submitHandler}>
                 <Header>Add A Deli</Header>
                 <FormFields>
                     <Form.Group >
                         <Form.Field
-                        // id='form-input-control-first-name'
                         control={Input}
                         label='Name'
                         name='name'
@@ -82,7 +71,6 @@ class AddDeliForm extends React.Component {
                     <FormFields>
                     <Form.Group >
                         <Form.Field
-                        // id='form-input-control-last-name'
                         control={Input}
                         label='Address'
                         name='address'
@@ -109,7 +97,6 @@ class AddDeliForm extends React.Component {
                     <FormFields>
                     <Form.Group >
                         <Form.Field
-                            // id='form-input-control-first-name'
                             control={Input}
                             label='Hours'
                             name='hours_open'
@@ -122,7 +109,6 @@ class AddDeliForm extends React.Component {
                     <FormFields>
                     <Form.Group >
                         <Form.Field
-                            // id='form-input-control-last-name'
                             control={Input}
                             label='Neighborhood'
                             name='neighborhood'
@@ -135,7 +121,6 @@ class AddDeliForm extends React.Component {
                     <FormFields>
                     <Form.Group >
                         <Form.Field
-                            // id='form-input-control-last-name'
                             control={Input}
                             label='Borough'
                             name='borough'

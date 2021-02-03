@@ -13,7 +13,7 @@ class SandwichListItem extends React.Component {
     render() {
         return (
             <ul className="ul">
-                <SandwichLine onClick={this.clickHandler}>  -     {this.props.sandwichObj.name} / Rating:{this.props.sandwichObj.rating}</SandwichLine>
+                <SandwichLine onClick={this.clickHandler}>  -     {this.props.sandwichObj.name} /   Rating:  {this.props.sandwichObj.rating}⭐️</SandwichLine>
             </ul>
         )
     }

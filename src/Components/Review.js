@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { reviewEditClicked, reviewClick, getSandwiches } from '../Redux/actions'
+import { reviewEditClicked, reviewClick, getSandwiches, getReview } from '../Redux/actions'
 import SandwichListItem from './SandwichListItem'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
@@ -9,6 +9,7 @@ class Review extends React.Component {
 
     componentDidMount() {
         this.props.allSandwiches()
+        this.props.fetchReview(this.props.review)
     }
 
     editClickHandler = () => {
@@ -35,7 +36,6 @@ class Review extends React.Component {
     }
 
     sandwichOfDeliReview = () => {
-        // console.log(this.props.sandwiches)
         return this.props.deli.sandwiches.map(deliSandwich => {
             return this.props.sandwiches.map(sandwich => {
                 if (deliSandwich.name === sandwich.name) {
@@ -87,7 +87,8 @@ function mdp(dispatch) {
     return {
         clickedReview: () => dispatch(reviewClick()),
         editReview: () => dispatch(reviewEditClicked()),
-        allSandwiches: () => dispatch(getSandwiches())
+        allSandwiches: () => dispatch(getSandwiches()),
+        fetchReview: (reviewObj) => dispatch(getReview(reviewObj)) 
     }
 }
 export default connect(msp, mdp)(Review)

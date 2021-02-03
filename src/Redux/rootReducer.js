@@ -96,10 +96,8 @@ function boroughStyleReducer(prevState = defaultState.boroughFilter, action) {
 function deliSearchReducer(prevState = defaultState.deliLocation, action) {
     switch (action.type) {
         case "FIND_DELI":
-            // console.log("inside deliSearchReducer: ", action.payload)
             return action.payload
         case "RESET_DELI_LOCATION":
-            // console.log(prevState)
             return null
         default:
             return prevState
@@ -109,7 +107,6 @@ function deliSearchReducer(prevState = defaultState.deliLocation, action) {
 function deliFormReducer(prevState = defaultState.deliFormClicked, action){
     switch (action.type) {
         case "DELI_FORM":
-            // console.log("inside deliForm Reducer", action)
             return !prevState
         default:
             return prevState
@@ -119,7 +116,6 @@ function deliFormReducer(prevState = defaultState.deliFormClicked, action){
 function deliListClickReducer(prevState = defaultState.deliList, action){
     switch (action.type) {
         case "RENDER_DELI_LIST":
-            // console.log(prevState)
             return !prevState
         default:
             return prevState
@@ -203,11 +199,9 @@ function reviewsReducer(prevState = defaultState.reviews, action) {
         case "POST_REVIEW":
             return [action.payload, ...prevState]
         case "PATCH_REVIEW":
-            // console.log("In patch reducer: ", action.payload)
             let updatedArray = [...prevState]
             let reviewIndex = updatedArray.findIndex(review => review.id === action.payload.id)
             updatedArray[reviewIndex] = action.payload
-            // console.log(updatedArray)
             return updatedArray
         default:
             return prevState
@@ -226,6 +220,8 @@ function reviewBeenClickReducer(prevState = defaultState.reviewBeenClicked, acti
 function reviewReducer(prevState = defaultState.review, action) {
     switch (action.type) {
         case "RENDER_REVIEW":
+            return action.payload
+        case "GET_REVIEW":
             return action.payload
         default:
             return prevState
